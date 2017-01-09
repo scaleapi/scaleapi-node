@@ -3,15 +3,15 @@
 var scaleapi = require('../lib/scaleapi');
 var chai = require('chai');
 var expect = chai.expect;
-var test_api_key = process.env.SCALE_TEST_API_KEY;
+var testApiKey = process.env.SCALE_TEST_API_KEY;
 
-expect(test_api_key).to.not.be.a('null');
+expect(testApiKey).to.not.be.a('null');
 
-var client = new scaleapi.ScaleClient({apikey: test_api_key});
+var client = new scaleapi.ScaleClient({apikey: testApiKey});
 
 describe('task creation', () => {
   it('categorize', done => {
-    client.create_categorization_task({
+    client.createCategorizationTask({
       callback_url: 'http://www.example.com/callback',
       instruction: 'Is this company public or private?',
       attachment_type: 'website',
@@ -20,7 +20,7 @@ describe('task creation', () => {
   });
 
   it('categorize fail', done => {
-    client.create_categorization_task({
+    client.createCategorizationTask({
       callback_url: 'http://www.example.com/callback',
       categories: ['public', 'private']},
       err => {
@@ -30,7 +30,7 @@ describe('task creation', () => {
   });
 
   it('transcription', done => {
-    client.create_transcription_task({
+    client.createTranscriptionTask({
       callback_url: 'http://www.example.com/callback',
       instruction: 'Transcribe the given fields. Then for each news item on the page, transcribe the information for the row.',
       attachment_type: 'website',
@@ -46,7 +46,7 @@ describe('task creation', () => {
   });
 
   it('transcription fail', done => {
-    client.create_transcription_task({
+    client.createTranscriptionTask({
       callback_url: 'http://www.example.com/callback',
       attachment_type: 'website'},
       err => {
@@ -56,7 +56,7 @@ describe('task creation', () => {
   });
 
   it('phonecall', done => {
-    client.create_phonecall_task({
+    client.createPhonecallTask({
       callback_url: 'http://www.example.com/callback',
       instruction: 'Call this person and follow the script provided, recording responses',
       phone_number: '5055006865',
@@ -67,7 +67,7 @@ describe('task creation', () => {
   });
 
   it('phonecall fail', done => {
-    client.create_phonecall_task({
+    client.createPhonecallTask({
       callback_url: 'http://www.example.com/callback',
       instruction: 'Call this person and follow the script provided, recording responses'},
       err => {
@@ -77,7 +77,7 @@ describe('task creation', () => {
   });
 
   it('comparison', done => {
-    client.create_comparison_task({
+    client.createComparisonTask({
       callback_url: 'http://www.example.com/callback',
       instruction: 'Do the objects in these images have the same pattern?',
       attachment_type: 'image',
@@ -89,7 +89,7 @@ describe('task creation', () => {
   });
 
   it('comparison fail', done => {
-    client.create_comparison_task({
+    client.createComparisonTask({
       callback_url: 'http://www.example.com/callback',
       instruction: 'Do the objects in these images have the same pattern?',
       attachment_type: 'image'},
@@ -100,7 +100,7 @@ describe('task creation', () => {
   });
 
   it('annotation', done => {
-    client.create_annotation_task({
+    client.createAnnotationTask({
       callback_url: 'http://www.example.com/callback',
       instruction: 'Draw a box around each **baby cow** and **big cow**',
       attachment_type: 'image',
@@ -110,7 +110,7 @@ describe('task creation', () => {
   });
 
   it('annotation fail', done => {
-    client.create_annotation_task({
+    client.createAnnotationTask({
       callback_url: 'http://www.example.com/callback',
       instruction: 'Draw a box around each **baby cow** and **big cow**',
       attachment_type: 'image'},
@@ -121,7 +121,7 @@ describe('task creation', () => {
   });
 
   it('datacollection', done => {
-    client.create_datacollection_task({
+    client.createDatacollectionTask({
       callback_url: 'http://www.example.com/callback',
       instruction: 'Find the URL for the hiring page for the company with attached website.',
       attachment_type: 'website',
@@ -130,7 +130,7 @@ describe('task creation', () => {
   });
 
   it('datacollection fail', done => {
-    client.create_datacollection_task({
+    client.createDatacollectionTask({
       callback_url: 'http://www.example.com/callback',
       attachment_type: 'website'},
       err => {
@@ -140,7 +140,7 @@ describe('task creation', () => {
   });
 
   it('audiotranscription', done => {
-    client.create_audiotranscription_task({
+    client.createAudiotranscriptionTask({
       callback_url: 'http://www.example.com/callback',
       attachment_type: 'audio',
       attachment: 'https://storage.googleapis.com/deepmind-media/pixie/knowing-what-to-say/second-list/speaker-3.wav',
@@ -148,7 +148,7 @@ describe('task creation', () => {
   });
 
   it('audiotranscription fail', done => {
-    client.create_audiotranscription_task({
+    client.createAudiotranscriptionTask({
       callback_url: 'http://www.example.com/callback',
       attachment_type: 'audio'},
       err => {
