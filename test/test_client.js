@@ -157,6 +157,16 @@ describe('task creation', () => {
         done();
       });
   });
+
+  it('audiotranscription fail2', done => {
+    client.createAudiotranscriptionTask({
+      callback_url: 'http://www.example.com/callback',
+      attachment: 'some_non_url'},
+      err => {
+        expect(err).to.be.an.instanceof(scaleapi.ScaleException);
+        done();
+      });
+  });
 });
 
 var MAKE_A_TASK = cb => client.createComparisonTask({
@@ -214,6 +224,38 @@ describe('task methods', () => {
       cb => client.tasks({start_time: startTime, end_time: endTime}, cb),
     ], (err, tasks) => {
       expect(tasks).to.be.empty;
+      done();
+    });
+  });
+
+  it('test task retrieval fail', done => {
+    client.fetchTask('fake_id_qwertyuiop', err => {
+      expect(err).to.be.an.instanceof(scaleapi.ScaleException);
+      done();
+    });
+  });
+
+  it('test tasks', done => {
+    var tasks = [];
+    async.waterfall([
+      MAKE_A_TASK,
+      (task, cb) => { tasks.push(task); cb(); },
+      MAKE_A_TASK,
+      (task, cb) => { tasks.push(task); cb(); },
+      MAKE_A_TASK,
+      (task, cb) => { tasks.push(task); cb(); },
+      cb => client.tasks({limit: 3}, cb)
+    ], (err, res) => {
+      var taskids = tasks.map(task => task.id);
+      var retrievedTaskIds = res.map(task => task.id);
+      expect(taskids).to.have.members(retrievedTaskIds);
+      done();
+    });
+  });
+
+  it('test tasks invalid', done => {
+    client.tasks({bogus: 0}, err => {
+      expect(err).to.be.an.instanceof(scaleapi.ScaleException);
       done();
     });
   });
