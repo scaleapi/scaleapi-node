@@ -1,5 +1,6 @@
 /* eslint-env mocha */
 'use strict';
+var async = require('async');
 var scaleapi = require('../lib/scaleapi');
 var chai = require('chai');
 var expect = chai.expect;
@@ -155,5 +156,65 @@ describe('task creation', () => {
         expect(err).to.be.an.instanceof(scaleapi.ScaleException);
         done();
       });
+  });
+});
+
+var MAKE_A_TASK = cb => client.createComparisonTask({
+  callback_url: 'http://www.example.com/callback',
+  instruction: 'Do the objects in these images have the same pattern?',
+  attachment_type: 'image',
+  attachments: [
+    'http://i.ebayimg.com/00/$T2eC16dHJGwFFZKjy5ZjBRfNyMC4Ig~~_32.JPG',
+    'http://images.wisegeek.com/checkered-tablecloth.jpg'
+  ],
+  choices: ['yes', 'no']}, cb);
+
+describe('task methods', () => {
+  it('test cancel', done => {
+    async.waterfall([
+      MAKE_A_TASK,
+      (task, cb) => task.cancel(cb)],
+      //since test tasks complete instantly, we expect cancellation to fail
+      err => {
+        expect(err).to.be.an.instanceof(scaleapi.ScaleException);
+        done();
+      });
+  });
+
+  it('test task retrieval', done => {
+    var task1;
+    async.waterfall([
+      MAKE_A_TASK,
+      (task, cb) => {
+        task1 = task;
+        client.fetchTask(task.id, cb);
+      }],
+      (err, task2) => {
+        expect(task1.status).to.equal('pending');
+        expect(task2.status).to.equal('completed');
+        var fields = [
+          'id', 'callback_url', 'instruction',
+          'attachment_type', 'attachment', 'choices',
+          'metadata', 'type', 'created_at'
+        ];
+        fields.forEach(field => expect(task1[field]).to.eql(task2[field]));
+        done();
+      });
+  });
+
+  it('test task retrieval time', done => {
+    var startTime;
+    var endTime;
+    async.waterfall([
+      MAKE_A_TASK,
+      (task, cb) => setTimeout(cb, 500),
+      cb => {startTime = (new Date()).toISOString(); cb();},
+      cb => setTimeout(cb, 500),
+      cb => {endTime = (new Date()).toISOString(); cb();},
+      cb => client.tasks({start_time: startTime, end_time: endTime}, cb),
+    ], (err, tasks) => {
+      expect(tasks).to.be.empty;
+      done();
+    });
   });
 });
