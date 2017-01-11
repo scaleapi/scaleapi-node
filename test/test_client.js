@@ -6,7 +6,7 @@ var chai = require('chai');
 var expect = chai.expect;
 var testApiKey = process.env.SCALE_TEST_API_KEY;
 
-expect(testApiKey).to.not.be.a('null');
+if (!testApiKey) throw new Error('Please set the environment variable SCALE_API_TEST_KEY.');
 
 var client = new scaleapi.ScaleClient({apikey: testApiKey});
 
