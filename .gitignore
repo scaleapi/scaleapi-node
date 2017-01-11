@@ -39,21 +39,3 @@ jspm_packages
 
 # Optional REPL history
 .node_repl_history
-
-.DS_Store
-
-# IntelliJ
-.idea/*
-
-# VSCode
-.vscode/*
-
-# Don't use yarn for now
-yarn.lock
-
-client/react/index.html
-client/react/customer.html
-client/corp/index.html
-client/corp/bundle.js
-client/react/bundle.js
-

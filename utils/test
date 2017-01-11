@@ -1,2 +1,1 @@
-#echo 'Running eslint...' && eslint server client/react/ test/ && echo 'eslint complete!' && ENV=TEST mocha --timeout 15000
-ENV=TEST mocha --timeout 15000
+echo 'Running eslint...' && eslint lib/ test/ && echo 'eslint complete!' && ENV=TEST mocha
