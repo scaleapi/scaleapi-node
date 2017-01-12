@@ -223,7 +223,7 @@ describe('task methods', () => {
       cb => {endTime = (new Date()).toISOString(); cb();},
       cb => client.tasks({start_time: startTime, end_time: endTime}, cb),
     ], (err, tasks) => {
-      expect(tasks).to.be.empty;
+      expect(tasks.docs).to.be.empty;
       done();
     });
   });
