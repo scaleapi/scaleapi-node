@@ -1,0 +1,1 @@
+echo 'Running eslint...' && eslint lib/ test/ && echo 'eslint complete!' && ENV=TEST mocha
