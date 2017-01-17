@@ -2,7 +2,6 @@
   "scripts": {
     "test": "utils/test"
   },
-  "private": true,
   "dependencies": {
     "request": "^2.72.0"
   },
