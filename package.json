@@ -20,7 +20,7 @@
     "mocha": "^3.0.2",
     "supertest": "^2.0.0"
   },
-  "name": "scaleapi-node",
+  "name": "scaleapi",
   "description": "Official Node SDK for Scale API",
   "version": "1.0.0",
   "main": "lib/scaleapi.js",
@@ -40,7 +40,7 @@
     "transcription",
     "annotation",
     "comparison",
-    "data collection'",
+    "data collection",
     "phone call",
     "audio transcription"
   ],
