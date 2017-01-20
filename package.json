@@ -2,7 +2,6 @@
   "scripts": {
     "test": "utils/test"
   },
-  "private": true,
   "dependencies": {
     "request": "^2.72.0"
   },
@@ -20,5 +19,35 @@
     "eslint-plugin-standard": "^2.0.1",
     "mocha": "^3.0.2",
     "supertest": "^2.0.0"
-  }
+  },
+  "name": "scaleapi",
+  "description": "Official Node SDK for Scale API",
+  "version": "1.0.0",
+  "main": "lib/scaleapi.js",
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/scaleapi/scaleapi-node.git"
+  },
+  "keywords": [
+    "scale",
+    "scaleapi",
+    "humans",
+    "tasks",
+    "categorization",
+    "transcription",
+    "annotation",
+    "comparison",
+    "data collection",
+    "phone call",
+    "audio transcription"
+  ],
+  "author": "Scale Inc",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/scaleapi/scaleapi-node/issues"
+  },
+  "homepage": "https://github.com/scaleapi/scaleapi-node#readme"
 }
