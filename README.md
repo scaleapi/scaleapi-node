@@ -1,5 +1,9 @@
 # scaleapi-node
-Official Node SDK for Scale API
+Official Node.js SDK for Scale API
+
+## Installation
+
+`npm install scaleapi --save`
 
 ## Documentation
-For most up-to-date and accurate documentation, please reference our [API Reference](https://docs.scaleapi.com) page.
+For most up-to-date and accurate documentation, please see our [API Reference](https://docs.scaleapi.com) page.
