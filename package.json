@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "test": "utils/test"
+    "test": "mocha test"
   },
   "dependencies": {
     "request": "^2.72.0"
@@ -44,7 +44,7 @@
     "phone call",
     "audio transcription"
   ],
-  "author": "Scale Inc",
+  "author": "Scale Labs, Inc.",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/scaleapi/scaleapi-node/issues"

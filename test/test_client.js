@@ -4,11 +4,11 @@ var async = require('async');
 var scaleapi = require('../lib/scaleapi');
 var chai = require('chai');
 var expect = chai.expect;
-var testApiKey = process.env.SCALE_TEST_API_KEY;
+var testApiKey = process.env.SCALE_API_TEST_KEY;
 
 if (!testApiKey) throw new Error('Please set the environment variable SCALE_API_TEST_KEY.');
 
-var client = new scaleapi.ScaleClient({apikey: testApiKey});
+var client = new scaleapi.ScaleClient(testApiKey);
 
 describe('task creation', () => {
   it('categorize', done => {
@@ -247,7 +247,7 @@ describe('task methods', () => {
       cb => client.tasks({limit: 3}, cb)
     ], (err, res) => {
       var taskids = tasks.map(task => task.id);
-      var retrievedTaskIds = res.map(task => task.id);
+      var retrievedTaskIds = res.docs.map(task => task.id);
       expect(taskids).to.have.members(retrievedTaskIds);
       done();
     });
