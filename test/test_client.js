@@ -121,6 +121,48 @@ describe('task creation', () => {
       });
   });
 
+  it('polygonannotation', done => {
+    client.createPolygonannotationTask({
+      callback_url: 'http://www.example.com/callback',
+      instruction: 'Draw a tight shape around the big cow.',
+      attachment_type: 'image',
+      attachment: 'http://i.imgur.com/v4cBreD.jpg',
+      objects_to_annotate: ['big cow'],
+      with_labels: true}, done);
+  });
+
+  it('polygonannotation fail', done => {
+    client.createPolygonannotationTask({
+      callback_url: 'http://www.example.com/callback',
+      instruction: 'Draw a tight shape around the big cow.',
+      attachment_type: 'image'},
+      err => {
+        expect(err).to.be.an.instanceof(scaleapi.ScaleException);
+        done();
+      });
+  });
+
+  it('lineannotation', done => {
+    client.createLineannotationTask({
+      callback_url: 'http://www.example.com/callback',
+      instruction: 'Draw lines along the legs of the big cow.',
+      attachment_type: 'image',
+      attachment: 'http://i.imgur.com/v4cBreD.jpg',
+      objects_to_annotate: ['leg'],
+      with_labels: true}, done);
+  });
+
+  it('lineannotation fail', done => {
+    client.createLineannotationTask({
+      callback_url: 'http://www.example.com/callback',
+      instruction: 'Draw lines along the legs of the big cow.',
+      attachment_type: 'image'},
+      err => {
+        expect(err).to.be.an.instanceof(scaleapi.ScaleException);
+        done();
+      });
+  });
+
   it('datacollection', done => {
     client.createDatacollectionTask({
       callback_url: 'http://www.example.com/callback',
