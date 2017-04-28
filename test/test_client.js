@@ -4,9 +4,9 @@ var async = require('async');
 var scaleapi = require('../lib/scaleapi');
 var chai = require('chai');
 var expect = chai.expect;
-var testApiKey = process.env.SCALE_API_TEST_KEY;
+var testApiKey = process.env.SCALE_API_TEST_KEY || process.env.SCALE_TEST_API_KEY;
 
-if (!testApiKey) throw new Error('Please set the environment variable SCALE_API_TEST_KEY.');
+if (!testApiKey) throw new Error('Please set the environment variable SCALE_TEST_API_KEY.');
 
 var client = new scaleapi.ScaleClient(testApiKey);
 
@@ -109,6 +109,18 @@ describe('task creation', () => {
       objects_to_annotate: ['baby cow', 'big cow'],
       with_labels: true}, done);
   });
+
+  it('annotation_min_width', done => {
+    client.createAnnotationTask({
+      callback_url: 'http://www.example.com/callback',
+      instruction: 'Draw a box around each **baby cow** and **big cow**',
+      attachment_type: 'image',
+      attachment: 'http://i.imgur.com/v4cBreD.jpg',
+      min_width: '30',
+      objects_to_annotate: ['baby cow', 'big cow'],
+      with_labels: true}, done);
+  });
+
 
   it('annotation fail', done => {
     client.createAnnotationTask({
