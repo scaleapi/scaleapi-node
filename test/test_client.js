@@ -56,27 +56,6 @@ describe('task creation', () => {
       });
   });
 
-  it('phonecall', done => {
-    client.createPhonecallTask({
-      callback_url: 'http://www.example.com/callback',
-      instruction: 'Call this person and follow the script provided, recording responses',
-      phone_number: '5055006865',
-      entity_name: 'Alexandr Wang',
-      script: 'Hello ! Are you happy today? (pause) One more thing - what is your email address?',
-      fields: {'email': 'Email Address'},
-      choices: ['He is happy', 'He is not happy']}, done);
-  });
-
-  it('phonecall fail', done => {
-    client.createPhonecallTask({
-      callback_url: 'http://www.example.com/callback',
-      instruction: 'Call this person and follow the script provided, recording responses'},
-      err => {
-        expect(err).to.be.an.instanceof(scaleapi.ScaleException);
-        done();
-      });
-  });
-
   it('comparison', done => {
     client.createComparisonTask({
       callback_url: 'http://www.example.com/callback',
