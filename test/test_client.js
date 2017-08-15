@@ -40,7 +40,7 @@ describe('task creation', () => {
         'title': 'Title of Webpage',
         'top_result': 'Title of the top result'
       },
-      row_fields: {
+      repeatable_fields: {
         'username': 'Username of submitter',
         'comment_count': 'Number of comments'
       }}, done);
@@ -50,27 +50,6 @@ describe('task creation', () => {
     client.createTranscriptionTask({
       callback_url: 'http://www.example.com/callback',
       attachment_type: 'website'},
-      err => {
-        expect(err).to.be.an.instanceof(scaleapi.ScaleException);
-        done();
-      });
-  });
-
-  it('phonecall', done => {
-    client.createPhonecallTask({
-      callback_url: 'http://www.example.com/callback',
-      instruction: 'Call this person and follow the script provided, recording responses',
-      phone_number: '5055006865',
-      entity_name: 'Alexandr Wang',
-      script: 'Hello ! Are you happy today? (pause) One more thing - what is your email address?',
-      fields: {'email': 'Email Address'},
-      choices: ['He is happy', 'He is not happy']}, done);
-  });
-
-  it('phonecall fail', done => {
-    client.createPhonecallTask({
-      callback_url: 'http://www.example.com/callback',
-      instruction: 'Call this person and follow the script provided, recording responses'},
       err => {
         expect(err).to.be.an.instanceof(scaleapi.ScaleException);
         done();
@@ -161,6 +140,7 @@ describe('task creation', () => {
       attachment_type: 'image',
       attachment: 'http://i.imgur.com/v4cBreD.jpg',
       objects_to_annotate: ['leg'],
+      splines: true,
       with_labels: true}, done);
   });
 
@@ -168,6 +148,48 @@ describe('task creation', () => {
     client.createLineannotationTask({
       callback_url: 'http://www.example.com/callback',
       instruction: 'Draw lines along the legs of the big cow.',
+      attachment_type: 'image'},
+      err => {
+        expect(err).to.be.an.instanceof(scaleapi.ScaleException);
+        done();
+      });
+  });
+
+  it('pointannotation', done => {
+    client.createPointannotationTask({
+      callback_url: 'http://www.example.com/callback',
+      instruction: 'Draw a point on the big cow.',
+      attachment_type: 'image',
+      attachment: 'http://i.imgur.com/v4cBreD.jpg',
+      objects_to_annotate: ['big cow'],
+      with_labels: true}, done);
+  });
+
+  it('pointannotation fail', done => {
+    client.createPointannotationTask({
+      callback_url: 'http://www.example.com/callback',
+      instruction: 'Draw a tight shape around the big cow.',
+      attachment_type: 'image'},
+      err => {
+        expect(err).to.be.an.instanceof(scaleapi.ScaleException);
+        done();
+      });
+  });
+
+  it('segmentannotation', done => {
+    client.createSegmentannotationTask({
+      callback_url: 'http://www.example.com/callback',
+      instruction: 'Segment the image.',
+      attachment_type: 'image',
+      attachment: 'http://i.imgur.com/v4cBreD.jpg',
+      labels: ['big cow', 'background'],
+      allow_unlabeled: true}, done);
+  });
+
+  it('segmentannotation fail', done => {
+    client.createSegmentannotationTask({
+      callback_url: 'http://www.example.com/callback',
+      instruction: 'Segment the image.',
       attachment_type: 'image'},
       err => {
         expect(err).to.be.an.instanceof(scaleapi.ScaleException);
