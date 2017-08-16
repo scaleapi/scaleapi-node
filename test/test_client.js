@@ -333,10 +333,13 @@ describe('task methods', function() {
   });
 
   it('test tasks invalid', () => {
+    let errorThrown = false;
     try {
       client.tasks({bogus: 0}, err => {});
     } catch(err) {
       expect(err).to.be.an.instanceof(scaleapi.ScaleException);
+      errorThrown = true;
     }
+    expect(errorThrown).to.equal(true);
   });
 });
