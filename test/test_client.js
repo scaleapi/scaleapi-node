@@ -332,14 +332,10 @@ describe('task methods', function() {
     });
   });
 
-  it('test tasks invalid', () => {
-    let errorThrown = false;
-    try {
-      client.tasks({bogus: 0}, err => {});
-    } catch(err) {
+  it('test tasks invalid', (done) => {
+    client.tasks({bogus: 0}, err => {
       expect(err).to.be.an.instanceof(scaleapi.ScaleException);
-      errorThrown = true;
-    }
-    expect(errorThrown).to.equal(true);
+      done();
+    });
   });
 });
