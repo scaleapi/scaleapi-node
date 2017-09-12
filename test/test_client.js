@@ -9,8 +9,10 @@ var testApiKey = process.env.SCALE_API_TEST_KEY || process.env.SCALE_TEST_API_KE
 if (!testApiKey) throw new Error('Please set the environment variable SCALE_TEST_API_KEY.');
 
 var client = new scaleapi.ScaleClient(testApiKey);
+const TIMEOUT = 4000;
 
-describe('task creation', () => {
+describe('task creation', function() {
+  this.timeout(TIMEOUT);
   it('categorize', done => {
     client.createCategorizationTask({
       callback_url: 'http://www.example.com/callback',
@@ -255,7 +257,8 @@ var MAKE_A_TASK = cb => client.createComparisonTask({
   ],
   choices: ['yes', 'no']}, cb);
 
-describe('task methods', () => {
+describe('task methods', function() {
+  this.timeout(TIMEOUT);
   it('test cancel', done => {
     async.waterfall([
       MAKE_A_TASK,
@@ -329,7 +332,7 @@ describe('task methods', () => {
     });
   });
 
-  it('test tasks invalid', done => {
+  it('test tasks invalid', (done) => {
     client.tasks({bogus: 0}, err => {
       expect(err).to.be.an.instanceof(scaleapi.ScaleException);
       done();
