@@ -22,7 +22,7 @@
   },
   "name": "scaleapi",
   "description": "Official Node SDK for Scale API",
-  "version": "2.3.2",
+  "version": "3.0.0",
   "main": "lib/scaleapi.js",
   "directories": {
     "test": "test"
