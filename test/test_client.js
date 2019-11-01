@@ -245,6 +245,46 @@ describe('task creation', function() {
         done();
       });
   });
+
+  it('namedentityrecognition', done => {
+    client.createNamedentityrecognitionTask({
+      callback_url: 'http://www.example.com/callback',
+      instruction: 'Please label the below text',
+      text: 'Label this text using the NER tool.',
+      labels: [
+        {
+          name: 'LABEL_A',
+          description: 'This is a description.',
+        },
+        {
+          name: 'LABEL_B',
+          description: 'This is a description.',
+        },
+      ],
+    }, done);
+  });
+
+  it('namedentityrecognition fail', done => {
+    client.createNamedentityrecognitionTask({
+      callback_url: 'http://www.example.com/callback',
+      instruction: 'Please label the below text',
+      text: 'Label this text using the NER tool.',
+      labels: [
+        {
+          description: 'This is a description.',
+        },
+        {
+          name: 'LABEL_B',
+          description: 'This is a description.',
+          bad_key: 'BAD'
+        },
+      ],
+    },
+    err => {
+      expect(err).to.be.an.instanceof(scaleapi.ScaleException);
+      done();
+    });
+  });
 });
 
 var MAKE_A_TASK = cb => client.createComparisonTask({
