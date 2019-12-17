@@ -319,7 +319,8 @@ describe('task methods', function() {
         client.fetchTask(task.id, cb);
       }],
       (err, task2) => {
-        expect(task1.status).to.equal('pending');
+        // test tasks complete instantly, otherwise task1 would be in 'pending' status
+        expect(task1.status).to.equal('completed');
         expect(task2.status).to.equal('completed');
         var fields = [
           'id', 'callback_url', 'instruction',
