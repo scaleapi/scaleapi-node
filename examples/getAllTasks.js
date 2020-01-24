@@ -1,13 +1,14 @@
-const scaleapi = require('../lib/scaleapi.js'); // Change to just "scaleapi" for your project
+const scaleapi = require('scaleapi'); // Change to "../lib/scaleapi.js" if you intend to run in this repo
 const fs = require('fs');
+
+const maxTasksReturnedPerCall = 100;
 
 // HOW IT WORKS:
 // Given a list of search filters ("PARAMS"), it will page through tasks and write 
 // the output to a JSON file.
 
-
 // INPUT PARAMETERS:
-const API_KEY = 'live_xxxxx';
+const API_KEY = 'live_xxx';
 
 const MAX_TASKS_TO_RETURN = 100000; // Get up to the n most recently created tasks
 
@@ -29,26 +30,19 @@ const PARAMS = { // All params optional
   // Get list of task objects
   let getTasks = async function(client, maxTasksToReturn = 1000000, params = {}) {
     // Initialize everything
-    const maxTasksReturnedPerCall = 100;
     let lastPageCount = maxTasksReturnedPerCall;
     let output = [];
 
     // Go through page by page
-    while (lastPageCount == maxTasksReturnedPerCall && output.length < maxTasksToReturn) {
-      
-      // Skip ahead (offset) by the number of tasks already pulled
-      params.offset = output.length;
-
-      // Support asking for small number of tasks (like 5, 10, 50)
-      params.limit = maxTasksReturnedPerCall;
-      if (maxTasksToReturn - output.length < maxTasksReturnedPerCall) {
-        params.limit = maxTasksToReturn - output.length
-      } 
-
+    while (lastPageCount === maxTasksReturnedPerCall && output.length < maxTasksToReturn) {
       try {
         // fetch some tasks
         let tasks = await new Promise((resolve, reject) => {
-          client.tasks(params, (err, tasklist) => {
+          client.tasks({ 
+            ...params, 
+            offset: output.length, 
+            limit: maxTasksToReturn - output.length < maxTasksReturnedPerCall ? maxTasksToReturn - output.length : maxTasksReturnedPerCall
+          }, (err, tasklist) => {
             if (err) {
               console.error(err);
               reject(err);

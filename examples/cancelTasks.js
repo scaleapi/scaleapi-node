@@ -1,4 +1,4 @@
-const scaleapi = require('../lib/scaleapi.js'); // Change to just "scaleapi" for your project
+const scaleapi = require('scaleapi'); // Change to "../lib/scaleapi.js" if you intend to run in this repo
 const fs = require('fs');
 
 // HOW IT WORKS:
@@ -18,7 +18,7 @@ const client = scaleapi.ScaleClient(API_KEY);
   // ====================
 
   // Read in Task Details from CSV
-  let rows = getIdsFromCsv(fileName);
+  let rows = readCsv(fileName);
 
   // Alternatively, create just an array of rows to cancel Tasks from
   // let rows = [
@@ -30,9 +30,7 @@ const client = scaleapi.ScaleClient(API_KEY);
   // ====================
 
   // Process each row as needed
-  rows = rows.map(
-    row => row.split(',')[0].trim()
-  );
+  rows = rows.map(row => row[0]).filter(id => id.length === 24);
 
   console.log(`Number of Rows Found: ${rows.length}`);
 
@@ -40,43 +38,37 @@ const client = scaleapi.ScaleClient(API_KEY);
   // === CANCEL TASKS ===
   // ====================
 
-  if (rows.length > 0) {
-    await Promise.map(
-      rows,
-      async row => {
-        if (DO_DRY_RUN) {
-          console.log('Would be cancelling Task Id: ' + row);
-        } else {
-          await new Promise((resolve, reject) => {
-            client.cancelTask(row, (err, task) => {
-              // do something with task
-              if (err) {
-                console.error(err);
-                reject(err);
-              } else {
-                console.log(`Task Cancelled: ${task.task_id}`);
-                resolve();
-              }
-            });
+  await Promise.map(
+    rows,
+    async row => {
+      if (DO_DRY_RUN) {
+        console.log('Would be cancelling Task Id: ' + row);
+      } else {
+        await new Promise((resolve, reject) => {
+          client.cancelTask(row, (err, task) => {
+            // do something with task
+            if (err) {
+              console.error(err);
+              reject(err);
+            } else {
+              console.log(`Task Cancelled: ${task.task_id}`);
+              resolve();
+            }
           });
-        }
-      },
-      { concurrency: 10 },
-    );
+        });
+      }
+    },
+    { concurrency: 10 },
+  );
 
-    console.log('Finished Running Script');
-  }
+  console.log('Finished Running Script');
 }());
 
-let readCsv = function(fileName, hasHeader = false) {
+function readCsv(fileName, hasHeader = false) {
   const rows =
     fs.readFileSync(fileName, { encoding: 'utf8' })
       .split('\n')
-      .map(s => s.trim()) || [];
+      .map(r => r.split(",").map(s => s.trim())) || [];
 
-  return hasHeader && rows.length > 0 ? rows.splice(1) : rows;
+  return hasHeader ? rows.splice(1) : rows;
 }
-
-let getIdsFromCsv = function(fileName, hasHeader) {
-  return readCsv(fileName, hasHeader).filter(s => s.length === 24);
-};

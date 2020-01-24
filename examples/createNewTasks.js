@@ -1,4 +1,4 @@
-const scaleapi = require('../lib/scaleapi.js'); // Change to just "scaleapi" for your project
+const scaleapi = require('scaleapi'); // Change to "../lib/scaleapi.js" if you intend to run in this repo
 const fs = require('fs');
 
 // HOW IT WORKS:
@@ -10,7 +10,7 @@ const fs = require('fs');
 
 // INPUT PARAMETERS:
 const API_KEY = 'live_xxxxx';
-const DO_DRY_RUN = true;
+const DRY_RUN = true;
 const fileName = 'list/of/attachment_urls_and_other_data.csv'
 
 const client = scaleapi.ScaleClient(API_KEY);
@@ -32,8 +32,8 @@ const client = scaleapi.ScaleClient(API_KEY);
   // === PROCESS ROWS ===
   // ====================
 
-  // Process each row as needed
-  rows = rows.map(row => row.split(',')[0].trim());
+  // Process each row as needed, in this case, get first column value
+  rows = rows.map(row => row[0]);
 
   console.log(`Number of Rows Found: ${rows.length}`);
 
@@ -83,7 +83,7 @@ function readCsv(fileName, hasHeader = false) {
   const rows =
     fs.readFileSync(fileName, { encoding: 'utf8' })
       .split('\n')
-      .map(s => s.trim()) || [];
+      .map(r => r.split(",").map(s => s.trim())) || [];
 
-  return hasHeader && rows.length > 0 ? rows.splice(1) : rows;
+  return hasHeader ? rows.splice(1) : rows;
 }
