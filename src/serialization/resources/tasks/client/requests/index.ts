@@ -1,0 +1,1 @@
+export { SetTaskMetadataRequest } from "./SetTaskMetadataRequest";
