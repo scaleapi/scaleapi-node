@@ -31,8 +31,9 @@ export class Client {
             },
         });
         if (_response.ok) {
-            return await serializers.teammates.list.Response.parse(
-                _response.body as serializers.teammates.list.Response.Raw
+            return await serializers.teammates.list.Response.parseOrThrow(
+                _response.body as serializers.teammates.list.Response.Raw,
+                { allowUnknownKeys: true }
             );
         }
 
@@ -68,7 +69,7 @@ export class Client {
             headers: {
                 Authorization: core.BearerToken.toAuthorizationHeader(await core.Supplier.get(this.options.token)),
             },
-            body: await serializers.TeamsInvite.json(request),
+            body: await serializers.TeamsInvite.jsonOrThrow(request),
         });
         if (_response.ok) {
             return;
@@ -106,7 +107,7 @@ export class Client {
             headers: {
                 Authorization: core.BearerToken.toAuthorizationHeader(await core.Supplier.get(this.options.token)),
             },
-            body: await serializers.TeamsInvite.json(request),
+            body: await serializers.TeamsInvite.jsonOrThrow(request),
         });
         if (_response.ok) {
             return;

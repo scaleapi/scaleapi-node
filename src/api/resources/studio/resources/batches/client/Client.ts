@@ -31,8 +31,9 @@ export class Client {
             },
         });
         if (_response.ok) {
-            return await serializers.studio.batches.list.Response.parse(
-                _response.body as serializers.studio.batches.list.Response.Raw
+            return await serializers.studio.batches.list.Response.parseOrThrow(
+                _response.body as serializers.studio.batches.list.Response.Raw,
+                { allowUnknownKeys: true }
             );
         }
 
@@ -74,10 +75,12 @@ export class Client {
             headers: {
                 Authorization: core.BearerToken.toAuthorizationHeader(await core.Supplier.get(this.options.token)),
             },
-            body: await serializers.studio.SetBatchGroupRequest.json(request),
+            body: await serializers.studio.SetBatchGroupRequest.jsonOrThrow(request),
         });
         if (_response.ok) {
-            return await serializers.studio.Batch.parse(_response.body as serializers.studio.Batch.Raw);
+            return await serializers.studio.Batch.parseOrThrow(_response.body as serializers.studio.Batch.Raw, {
+                allowUnknownKeys: true,
+            });
         }
 
         if (_response.error.reason === "status-code") {
@@ -117,11 +120,12 @@ export class Client {
             headers: {
                 Authorization: core.BearerToken.toAuthorizationHeader(await core.Supplier.get(this.options.token)),
             },
-            body: await serializers.studio.SetBatchPrioritiesRequest.json(request),
+            body: await serializers.studio.SetBatchPrioritiesRequest.jsonOrThrow(request),
         });
         if (_response.ok) {
-            return await serializers.studio.batches.setPriorities.Response.parse(
-                _response.body as serializers.studio.batches.setPriorities.Response.Raw
+            return await serializers.studio.batches.setPriorities.Response.parseOrThrow(
+                _response.body as serializers.studio.batches.setPriorities.Response.Raw,
+                { allowUnknownKeys: true }
             );
         }
 
@@ -162,8 +166,9 @@ export class Client {
             },
         });
         if (_response.ok) {
-            return await serializers.studio.batches.resetPriorities.Response.parse(
-                _response.body as serializers.studio.batches.resetPriorities.Response.Raw
+            return await serializers.studio.batches.resetPriorities.Response.parseOrThrow(
+                _response.body as serializers.studio.batches.resetPriorities.Response.Raw,
+                { allowUnknownKeys: true }
             );
         }
 

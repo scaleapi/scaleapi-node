@@ -34,11 +34,12 @@ export class Client {
             headers: {
                 Authorization: core.BearerToken.toAuthorizationHeader(await core.Supplier.get(this.options.token)),
             },
-            body: await serializers.VideoPlaybackAnnotationRequest.json(request),
+            body: await serializers.VideoPlaybackAnnotationRequest.jsonOrThrow(request),
         });
         if (_response.ok) {
-            return await serializers.VideoPlaybackAnnotationResponse.parse(
-                _response.body as serializers.VideoPlaybackAnnotationResponse.Raw
+            return await serializers.VideoPlaybackAnnotationResponse.parseOrThrow(
+                _response.body as serializers.VideoPlaybackAnnotationResponse.Raw,
+                { allowUnknownKeys: true }
             );
         }
 
@@ -79,11 +80,12 @@ export class Client {
             headers: {
                 Authorization: core.BearerToken.toAuthorizationHeader(await core.Supplier.get(this.options.token)),
             },
-            body: await serializers.VideoPlaybackAnnotationRequest.json(request),
+            body: await serializers.VideoPlaybackAnnotationRequest.jsonOrThrow(request),
         });
         if (_response.ok) {
-            return await serializers.VideoPlaybackAnnotationResponse.parse(
-                _response.body as serializers.VideoPlaybackAnnotationResponse.Raw
+            return await serializers.VideoPlaybackAnnotationResponse.parseOrThrow(
+                _response.body as serializers.VideoPlaybackAnnotationResponse.Raw,
+                { allowUnknownKeys: true }
             );
         }
 

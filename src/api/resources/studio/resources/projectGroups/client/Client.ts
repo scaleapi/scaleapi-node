@@ -34,7 +34,10 @@ export class Client {
             },
         });
         if (_response.ok) {
-            return await serializers.studio.ProjectGroup.parse(_response.body as serializers.studio.ProjectGroup.Raw);
+            return await serializers.studio.ProjectGroup.parseOrThrow(
+                _response.body as serializers.studio.ProjectGroup.Raw,
+                { allowUnknownKeys: true }
+            );
         }
 
         if (_response.error.reason === "status-code") {
@@ -72,7 +75,7 @@ export class Client {
             headers: {
                 Authorization: core.BearerToken.toAuthorizationHeader(await core.Supplier.get(this.options.token)),
             },
-            body: await serializers.studio.CreateProjectGroupRequest.json(request),
+            body: await serializers.studio.CreateProjectGroupRequest.jsonOrThrow(request),
         });
         if (_response.ok) {
             return;
@@ -117,7 +120,7 @@ export class Client {
             headers: {
                 Authorization: core.BearerToken.toAuthorizationHeader(await core.Supplier.get(this.options.token)),
             },
-            body: await serializers.studio.UpdateProjectGroupRequest.json(request),
+            body: await serializers.studio.UpdateProjectGroupRequest.jsonOrThrow(request),
         });
         if (_response.ok) {
             return;

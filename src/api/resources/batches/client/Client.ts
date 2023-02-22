@@ -85,7 +85,9 @@ export class Client {
             queryParameters: _queryParams,
         });
         if (_response.ok) {
-            return await serializers.BatchList.parse(_response.body as serializers.BatchList.Raw);
+            return await serializers.BatchList.parseOrThrow(_response.body as serializers.BatchList.Raw, {
+                allowUnknownKeys: true,
+            });
         }
 
         if (_response.error.reason === "status-code") {
@@ -120,10 +122,12 @@ export class Client {
             headers: {
                 Authorization: core.BearerToken.toAuthorizationHeader(await core.Supplier.get(this.options.token)),
             },
-            body: await serializers.CreateBatchRequest.json(request),
+            body: await serializers.CreateBatchRequest.jsonOrThrow(request),
         });
         if (_response.ok) {
-            return await serializers.Batch.parse(_response.body as serializers.Batch.Raw);
+            return await serializers.Batch.parseOrThrow(_response.body as serializers.Batch.Raw, {
+                allowUnknownKeys: true,
+            });
         }
 
         if (_response.error.reason === "status-code") {
@@ -163,7 +167,9 @@ export class Client {
             },
         });
         if (_response.ok) {
-            return await serializers.Batch.parse(_response.body as serializers.Batch.Raw);
+            return await serializers.Batch.parseOrThrow(_response.body as serializers.Batch.Raw, {
+                allowUnknownKeys: true,
+            });
         }
 
         if (_response.error.reason === "status-code") {
@@ -203,7 +209,9 @@ export class Client {
             },
         });
         if (_response.ok) {
-            return await serializers.Batch.parse(_response.body as serializers.Batch.Raw);
+            return await serializers.Batch.parseOrThrow(_response.body as serializers.Batch.Raw, {
+                allowUnknownKeys: true,
+            });
         }
 
         if (_response.error.reason === "status-code") {
@@ -243,7 +251,10 @@ export class Client {
             },
         });
         if (_response.ok) {
-            return await serializers.BatchStatusResponse.parse(_response.body as serializers.BatchStatusResponse.Raw);
+            return await serializers.BatchStatusResponse.parseOrThrow(
+                _response.body as serializers.BatchStatusResponse.Raw,
+                { allowUnknownKeys: true }
+            );
         }
 
         if (_response.error.reason === "status-code") {

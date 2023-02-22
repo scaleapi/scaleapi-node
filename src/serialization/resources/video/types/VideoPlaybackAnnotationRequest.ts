@@ -23,7 +23,7 @@ export const VideoPlaybackAnnotationRequest: core.serialization.ObjectSchema<
         core.serialization
             .record(
                 core.serialization.string(),
-                core.serialization.lazyObject(async () => (await import("../../..")).AnnotationAttribute)
+                core.serialization.lazyObject(async () => (await import("../../..")).AnnotationAttribute).optional()
             )
             .optional()
     ),
@@ -34,7 +34,7 @@ export const VideoPlaybackAnnotationRequest: core.serialization.ObjectSchema<
     links: core.serialization
         .record(
             core.serialization.string(),
-            core.serialization.lazyObject(async () => (await import("../../..")).Links)
+            core.serialization.lazyObject(async () => (await import("../../..")).Links).optional()
         )
         .optional(),
     frameRate: core.serialization.property("frame_rate", core.serialization.number().optional()),
@@ -82,9 +82,9 @@ export declare namespace VideoPlaybackAnnotationRequest {
         attachment?: string | null;
         attachment_type?: string | null;
         geometries: serializers.Geometries.Raw;
-        annotation_attributes?: Record<string, serializers.AnnotationAttribute.Raw> | null;
+        annotation_attributes?: Record<string, serializers.AnnotationAttribute.Raw | null | undefined> | null;
         events_to_annotate?: string[] | null;
-        links?: Record<string, serializers.Links.Raw> | null;
+        links?: Record<string, serializers.Links.Raw | null | undefined> | null;
         frame_rate?: number | null;
         padding?: number | null;
         paddingX?: number | null;

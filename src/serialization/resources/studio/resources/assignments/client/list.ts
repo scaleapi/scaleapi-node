@@ -8,12 +8,12 @@ import * as core from "../../../../../../core";
 
 export const Response: core.serialization.Schema<
     serializers.studio.assignments.list.Response.Raw,
-    Record<string, ScaleApi.studio.Assignment>
+    Record<string, ScaleApi.studio.Assignment | undefined>
 > = core.serialization.record(
     core.serialization.string(),
-    core.serialization.lazy(async () => (await import("../../../../..")).studio.Assignment)
+    core.serialization.lazy(async () => (await import("../../../../..")).studio.Assignment).optional()
 );
 
 export declare namespace Response {
-    type Raw = Record<string, serializers.studio.Assignment.Raw>;
+    type Raw = Record<string, serializers.studio.Assignment.Raw | null | undefined>;
 }

@@ -31,7 +31,9 @@ export class Client {
             },
         });
         if (_response.ok) {
-            return await serializers.Task.parse(_response.body as serializers.Task.Raw);
+            return await serializers.Task.parseOrThrow(_response.body as serializers.Task.Raw, {
+                allowUnknownKeys: true,
+            });
         }
 
         if (_response.error.reason === "status-code") {
@@ -137,7 +139,10 @@ export class Client {
             queryParameters: _queryParams,
         });
         if (_response.ok) {
-            return await serializers.ListTasksResponse.parse(_response.body as serializers.ListTasksResponse.Raw);
+            return await serializers.ListTasksResponse.parseOrThrow(
+                _response.body as serializers.ListTasksResponse.Raw,
+                { allowUnknownKeys: true }
+            );
         }
 
         if (_response.error.reason === "status-code") {
@@ -184,7 +189,9 @@ export class Client {
             queryParameters: _queryParams,
         });
         if (_response.ok) {
-            return await serializers.Task.parse(_response.body as serializers.Task.Raw);
+            return await serializers.Task.parseOrThrow(_response.body as serializers.Task.Raw, {
+                allowUnknownKeys: true,
+            });
         }
 
         if (_response.error.reason === "status-code") {
@@ -222,10 +229,12 @@ export class Client {
             headers: {
                 Authorization: core.BearerToken.toAuthorizationHeader(await core.Supplier.get(this.options.token)),
             },
-            body: await serializers.SetTaskMetadataRequest.json(request),
+            body: await serializers.SetTaskMetadataRequest.jsonOrThrow(request),
         });
         if (_response.ok) {
-            return await serializers.Task.parse(_response.body as serializers.Task.Raw);
+            return await serializers.Task.parseOrThrow(_response.body as serializers.Task.Raw, {
+                allowUnknownKeys: true,
+            });
         }
 
         if (_response.error.reason === "status-code") {

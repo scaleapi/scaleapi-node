@@ -38,8 +38,9 @@ export class Client {
             queryParameters: _queryParams,
         });
         if (_response.ok) {
-            return await serializers.projects.list.Response.parse(
-                _response.body as serializers.projects.list.Response.Raw
+            return await serializers.projects.list.Response.parseOrThrow(
+                _response.body as serializers.projects.list.Response.Raw,
+                { allowUnknownKeys: true }
             );
         }
 
@@ -75,10 +76,12 @@ export class Client {
             headers: {
                 Authorization: core.BearerToken.toAuthorizationHeader(await core.Supplier.get(this.options.token)),
             },
-            body: await serializers.CreateProjectRequest.json(request),
+            body: await serializers.CreateProjectRequest.jsonOrThrow(request),
         });
         if (_response.ok) {
-            return await serializers.Project.parse(_response.body as serializers.Project.Raw);
+            return await serializers.Project.parseOrThrow(_response.body as serializers.Project.Raw, {
+                allowUnknownKeys: true,
+            });
         }
 
         if (_response.error.reason === "status-code") {
@@ -115,7 +118,9 @@ export class Client {
             },
         });
         if (_response.ok) {
-            return await serializers.Project.parse(_response.body as serializers.Project.Raw);
+            return await serializers.Project.parseOrThrow(_response.body as serializers.Project.Raw, {
+                allowUnknownKeys: true,
+            });
         }
 
         if (_response.error.reason === "status-code") {
@@ -156,10 +161,12 @@ export class Client {
             headers: {
                 Authorization: core.BearerToken.toAuthorizationHeader(await core.Supplier.get(this.options.token)),
             },
-            body: await serializers.UpdateProjectParametersRequest.json(request),
+            body: await serializers.UpdateProjectParametersRequest.jsonOrThrow(request),
         });
         if (_response.ok) {
-            return await serializers.Project.parse(_response.body as serializers.Project.Raw);
+            return await serializers.Project.parseOrThrow(_response.body as serializers.Project.Raw, {
+                allowUnknownKeys: true,
+            });
         }
 
         if (_response.error.reason === "status-code") {
@@ -197,7 +204,7 @@ export class Client {
             headers: {
                 Authorization: core.BearerToken.toAuthorizationHeader(await core.Supplier.get(this.options.token)),
             },
-            body: await serializers.SetOntologyRequest.json(request),
+            body: await serializers.SetOntologyRequest.jsonOrThrow(request),
         });
         if (_response.ok) {
             return;

@@ -22,11 +22,11 @@ export interface VideoPlaybackAnnotationRequest {
     /** An object mapping `box`, `polygon`, `line`, `point`, `cuboid`, or `ellipse` to Geometry objects */
     geometries: ScaleApi.Geometries;
     /** See the [Annotation Attributes](/reference/attributes-overview) section for more details about annotation attributes. */
-    annotationAttributes?: Record<string, ScaleApi.AnnotationAttribute>;
+    annotationAttributes?: Record<string, ScaleApi.AnnotationAttribute | undefined>;
     /** The list of events to annotate */
     eventsToAnnotate?: string[];
     /** Use this field to define links between annotations. See [Links](/reference/links) for more details about links. */
-    links?: Record<string, ScaleApi.Links>;
+    links?: Record<string, ScaleApi.Links | undefined>;
     /** The number of frames per second to annotate. */
     frameRate?: number;
     /** The amount of padding in pixels added to the top, bottom, left, and right of each video frame. This allows labelers to extend annotations outside of the frames. */

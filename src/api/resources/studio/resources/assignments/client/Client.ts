@@ -22,7 +22,7 @@ export class Client {
     /**
      * Gets the current project assignments of all active users in your team (does not include “invited” or “disabled” team members).
      */
-    public async list(): Promise<Record<string, ScaleApi.studio.Assignment>> {
+    public async list(): Promise<Record<string, ScaleApi.studio.Assignment | undefined>> {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.ScaleApiEnvironment.Production,
@@ -34,8 +34,9 @@ export class Client {
             },
         });
         if (_response.ok) {
-            return await serializers.studio.assignments.list.Response.parse(
-                _response.body as serializers.studio.assignments.list.Response.Raw
+            return await serializers.studio.assignments.list.Response.parseOrThrow(
+                _response.body as serializers.studio.assignments.list.Response.Raw,
+                { allowUnknownKeys: true }
             );
         }
 
@@ -74,7 +75,7 @@ export class Client {
             headers: {
                 Authorization: core.BearerToken.toAuthorizationHeader(await core.Supplier.get(this.options.token)),
             },
-            body: await serializers.studio.AssignTeammate.json(request),
+            body: await serializers.studio.AssignTeammate.jsonOrThrow(request),
         });
         if (_response.ok) {
             return;
@@ -115,7 +116,7 @@ export class Client {
             headers: {
                 Authorization: core.BearerToken.toAuthorizationHeader(await core.Supplier.get(this.options.token)),
             },
-            body: await serializers.studio.AssignTeammate.json(request),
+            body: await serializers.studio.AssignTeammate.jsonOrThrow(request),
         });
         if (_response.ok) {
             return;
