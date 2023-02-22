@@ -1,6 +1,6 @@
 {
     "name": "@fern-api/scale",
-    "version": "0.0.12",
+    "version": "0.0.13",
     "repository": "https://github.com/fern-scale/scale-node",
     "files": [
         "dist",
