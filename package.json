@@ -1,6 +1,6 @@
 {
     "name": "@fern-api/scale",
-    "version": "0.0.16",
+    "version": "0.0.17",
     "private": false,
     "repository": "https://github.com/fern-scale/scaleapi-node-client",
     "files": [
