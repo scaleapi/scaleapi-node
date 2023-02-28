@@ -3,10 +3,10 @@
  */
 
 import * as serializers from "../../..";
-import { ScaleApi } from "@fern-api/scale";
+import { Scale } from "@fern-api/scale";
 import * as core from "../../../../core";
 
-export const BatchList: core.serialization.ObjectSchema<serializers.BatchList.Raw, ScaleApi.BatchList> =
+export const BatchList: core.serialization.ObjectSchema<serializers.BatchList.Raw, Scale.BatchList> =
     core.serialization.object({
         docs: core.serialization
             .list(core.serialization.lazyObject(async () => (await import("../../..")).Batch))

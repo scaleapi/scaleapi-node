@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../../..";
-import { ScaleApi } from "@fern-api/scale";
+import { Scale } from "@fern-api/scale";
 import * as core from "../../../../../core";
 
 export const CreateProjectRequest: core.serialization.Schema<
     serializers.CreateProjectRequest.Raw,
-    ScaleApi.CreateProjectRequest
+    Scale.CreateProjectRequest
 > = core.serialization.object({
     type: core.serialization.lazy(async () => (await import("../../../..")).TaskType),
     name: core.serialization.string(),

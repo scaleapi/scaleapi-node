@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../../..";
-import { ScaleApi } from "@fern-api/scale";
+import { Scale } from "@fern-api/scale";
 import * as core from "../../../../../core";
 
 export const UpdateProjectParametersRequest: core.serialization.Schema<
     serializers.UpdateProjectParametersRequest.Raw,
-    ScaleApi.UpdateProjectParametersRequest
+    Scale.UpdateProjectParametersRequest
 > = core.serialization.object({
     patch: core.serialization.boolean().optional(),
     instruction: core.serialization.string().optional(),

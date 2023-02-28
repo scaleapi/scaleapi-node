@@ -4,14 +4,14 @@
 
 import * as environments from "../../../../environments";
 import * as core from "../../../../core";
-import { ScaleApi } from "@fern-api/scale";
+import { Scale } from "@fern-api/scale";
 import urlJoin from "url-join";
 import * as serializers from "../../../../serialization";
 import * as errors from "../../../../errors";
 
 export declare namespace Client {
     interface Options {
-        environment?: environments.ScaleApiEnvironment | string;
+        environment?: environments.ScaleEnvironment | string;
         token?: core.Supplier<core.BearerToken>;
     }
 }
@@ -22,9 +22,9 @@ export class Client {
     /**
      * This API endpoint retrieves a specific task.
      */
-    public async get(taskId: string): Promise<ScaleApi.Task> {
+    public async get(taskId: string): Promise<Scale.Task> {
         const _response = await core.fetcher({
-            url: urlJoin(this.options.environment ?? environments.ScaleApiEnvironment.Production, `task/${taskId}`),
+            url: urlJoin(this.options.environment ?? environments.ScaleEnvironment.Production, `task/${taskId}`),
             method: "GET",
             headers: {
                 Authorization: core.BearerToken.toAuthorizationHeader(await core.Supplier.get(this.options.token)),
@@ -37,7 +37,7 @@ export class Client {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.ScaleApiError({
+            throw new errors.ScaleError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -45,14 +45,14 @@ export class Client {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.ScaleApiError({
+                throw new errors.ScaleError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.ScaleApiTimeoutError();
+                throw new errors.ScaleTimeoutError();
             case "unknown":
-                throw new errors.ScaleApiError({
+                throw new errors.ScaleError({
                     message: _response.error.errorMessage,
                 });
         }
@@ -61,7 +61,7 @@ export class Client {
     /**
      * This is a paginated endpoint that retrieves a list of your tasks. The tasks will be returned in descending order based on `created_at` time. All time filters expect an [ISO 8601-formatted string](https://timestampgenerator.com/), like '2021-04-25' or '2021-04-25T03:14:15-07:00' The pagination is based on the `limit` and `next_token` parameters, which determine the page size and the current page we are on. The value of `next_token` is a unique pagination token for each page ([nerdy details if you were curious](https://www.mixmax.com/engineering/api-paging-built-the-right-way/)). Make the call again using the returned token to retrieve the next page.
      */
-    public async list(request: ScaleApi.ListTasksRequest = {}): Promise<ScaleApi.ListTasksResponse> {
+    public async list(request: Scale.ListTasksRequest = {}): Promise<Scale.ListTasksResponse> {
         const {
             startTime,
             endTime,
@@ -131,7 +131,7 @@ export class Client {
         }
 
         const _response = await core.fetcher({
-            url: urlJoin(this.options.environment ?? environments.ScaleApiEnvironment.Production, "tasks"),
+            url: urlJoin(this.options.environment ?? environments.ScaleEnvironment.Production, "tasks"),
             method: "GET",
             headers: {
                 Authorization: core.BearerToken.toAuthorizationHeader(await core.Supplier.get(this.options.token)),
@@ -146,7 +146,7 @@ export class Client {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.ScaleApiError({
+            throw new errors.ScaleError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -154,14 +154,14 @@ export class Client {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.ScaleApiError({
+                throw new errors.ScaleError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.ScaleApiTimeoutError();
+                throw new errors.ScaleTimeoutError();
             case "unknown":
-                throw new errors.ScaleApiError({
+                throw new errors.ScaleError({
                     message: _response.error.errorMessage,
                 });
         }
@@ -170,7 +170,7 @@ export class Client {
     /**
      * This endpoint cancels a task so that it will not be completed. You may only cancel pending tasks, and the endpoint will return a 400 error code if you attempt to cancel a completed task If the task to be cancled had a unique id, specifying `clear_unique_id=true` will remove the unique id.  Canceling tasks is idempotent such that calling this endpoint multiple times will still return a 200 success response.
      */
-    public async cancel(taskId: string, request: ScaleApi.CancelTasksRequest = {}): Promise<ScaleApi.Task> {
+    public async cancel(taskId: string, request: Scale.CancelTasksRequest = {}): Promise<Scale.Task> {
         const { clearUniqueId } = request;
         const _queryParams = new URLSearchParams();
         if (clearUniqueId != null) {
@@ -178,10 +178,7 @@ export class Client {
         }
 
         const _response = await core.fetcher({
-            url: urlJoin(
-                this.options.environment ?? environments.ScaleApiEnvironment.Production,
-                `task/${taskId}/cancel`
-            ),
+            url: urlJoin(this.options.environment ?? environments.ScaleEnvironment.Production, `task/${taskId}/cancel`),
             method: "POST",
             headers: {
                 Authorization: core.BearerToken.toAuthorizationHeader(await core.Supplier.get(this.options.token)),
@@ -195,7 +192,7 @@ export class Client {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.ScaleApiError({
+            throw new errors.ScaleError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -203,14 +200,14 @@ export class Client {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.ScaleApiError({
+                throw new errors.ScaleError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.ScaleApiTimeoutError();
+                throw new errors.ScaleTimeoutError();
             case "unknown":
-                throw new errors.ScaleApiError({
+                throw new errors.ScaleError({
                     message: _response.error.errorMessage,
                 });
         }
@@ -219,10 +216,10 @@ export class Client {
     /**
      * This endpoint sets the `metadata` field on a task. You may set the `metadata` field on any existing task using valid key-value data. Updating a task's `metadata` field is idempotent such that calling this endpoint multiple times will still return a 200 success response.
      */
-    public async setMetadata(taskId: string, request: ScaleApi.SetTaskMetadataRequest): Promise<ScaleApi.Task> {
+    public async setMetadata(taskId: string, request: Scale.SetTaskMetadataRequest): Promise<Scale.Task> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.ScaleApiEnvironment.Production,
+                this.options.environment ?? environments.ScaleEnvironment.Production,
                 `task/${taskId}/setMetadata`
             ),
             method: "POST",
@@ -238,7 +235,7 @@ export class Client {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.ScaleApiError({
+            throw new errors.ScaleError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -246,14 +243,14 @@ export class Client {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.ScaleApiError({
+                throw new errors.ScaleError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.ScaleApiTimeoutError();
+                throw new errors.ScaleTimeoutError();
             case "unknown":
-                throw new errors.ScaleApiError({
+                throw new errors.ScaleError({
                     message: _response.error.errorMessage,
                 });
         }

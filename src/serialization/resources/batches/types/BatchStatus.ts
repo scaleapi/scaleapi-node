@@ -3,10 +3,10 @@
  */
 
 import * as serializers from "../../..";
-import { ScaleApi } from "@fern-api/scale";
+import { Scale } from "@fern-api/scale";
 import * as core from "../../../../core";
 
-export const BatchStatus: core.serialization.Schema<serializers.BatchStatus.Raw, ScaleApi.BatchStatus> =
+export const BatchStatus: core.serialization.Schema<serializers.BatchStatus.Raw, Scale.BatchStatus> =
     core.serialization.enum_(["staging", "in_progress", "completed"]);
 
 export declare namespace BatchStatus {

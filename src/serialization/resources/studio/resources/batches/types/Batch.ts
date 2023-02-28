@@ -3,10 +3,10 @@
  */
 
 import * as serializers from "../../../../..";
-import { ScaleApi } from "@fern-api/scale";
+import { Scale } from "@fern-api/scale";
 import * as core from "../../../../../../core";
 
-export const Batch: core.serialization.ObjectSchema<serializers.studio.Batch.Raw, ScaleApi.studio.Batch> =
+export const Batch: core.serialization.ObjectSchema<serializers.studio.Batch.Raw, Scale.studio.Batch> =
     core.serialization.object({
         id: core.serialization.string().optional(),
         name: core.serialization.string().optional(),

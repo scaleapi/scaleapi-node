@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../../..";
-import { ScaleApi } from "@fern-api/scale";
+import { Scale } from "@fern-api/scale";
 import * as core from "../../../../../core";
 
 export const CreateBatchRequest: core.serialization.Schema<
     serializers.CreateBatchRequest.Raw,
-    ScaleApi.CreateBatchRequest
+    Scale.CreateBatchRequest
 > = core.serialization.object({
     project: core.serialization.string(),
     name: core.serialization.string(),

@@ -3,10 +3,10 @@
  */
 
 import * as serializers from "../../..";
-import { ScaleApi } from "@fern-api/scale";
+import { Scale } from "@fern-api/scale";
 import * as core from "../../../../core";
 
-export const Links: core.serialization.ObjectSchema<serializers.Links.Raw, ScaleApi.Links> = core.serialization.object({
+export const Links: core.serialization.ObjectSchema<serializers.Links.Raw, Scale.Links> = core.serialization.object({
     isBidirectional: core.serialization.property("is_bidirectional", core.serialization.boolean().optional()),
     fromAllowedLabels: core.serialization.property(
         "from_allowed_labels",

@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../../../../..";
-import { ScaleApi } from "@fern-api/scale";
+import { Scale } from "@fern-api/scale";
 import * as core from "../../../../../../../core";
 
 export const SetBatchGroupRequest: core.serialization.Schema<
     serializers.studio.SetBatchGroupRequest.Raw,
-    ScaleApi.studio.SetBatchGroupRequest
+    Scale.studio.SetBatchGroupRequest
 > = core.serialization.object({
     groups: core.serialization.list(core.serialization.string()).optional(),
 });

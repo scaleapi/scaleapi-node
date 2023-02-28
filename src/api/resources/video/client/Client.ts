@@ -4,14 +4,14 @@
 
 import * as environments from "../../../../environments";
 import * as core from "../../../../core";
-import { ScaleApi } from "@fern-api/scale";
+import { Scale } from "@fern-api/scale";
 import urlJoin from "url-join";
 import * as serializers from "../../../../serialization";
 import * as errors from "../../../../errors";
 
 export declare namespace Client {
     interface Options {
-        environment?: environments.ScaleApiEnvironment | string;
+        environment?: environments.ScaleEnvironment | string;
         token?: core.Supplier<core.BearerToken>;
     }
 }
@@ -23,11 +23,11 @@ export class Client {
      * This endpoint creates a `videoplaybackannotation` task. In this task, we will view the given video file and draw annotation around the specified objects. You are required to provide a URL to the video file as the `attachment`. It can be in `mp4`, `webm`, or `ogg` format. You can optionally provide additional markdown-enabled or Google Doc-based [instructions](https://scale.com/docs/instructions) via the `instruction` parameter. You may optionally specify a `frame_rate`, which will determine how many frames per second will be used to annotate the given video. The default value is `1`. You may also optionally specify `events_to_annotate`, a list of strings describing [events section](/reference/events) to annotate in the video. If the request is successful, Scale will return the generated task object, at which point you should store the `task_id` to have a permanent reference to the task.
      */
     public async createPlaybackAnnotation(
-        request: ScaleApi.VideoPlaybackAnnotationRequest
-    ): Promise<ScaleApi.VideoPlaybackAnnotationResponse> {
+        request: Scale.VideoPlaybackAnnotationRequest
+    ): Promise<Scale.VideoPlaybackAnnotationResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.ScaleApiEnvironment.Production,
+                this.options.environment ?? environments.ScaleEnvironment.Production,
                 "task/videoplaybackannotation"
             ),
             method: "POST",
@@ -44,7 +44,7 @@ export class Client {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.ScaleApiError({
+            throw new errors.ScaleError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -52,14 +52,14 @@ export class Client {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.ScaleApiError({
+                throw new errors.ScaleError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.ScaleApiTimeoutError();
+                throw new errors.ScaleTimeoutError();
             case "unknown":
-                throw new errors.ScaleApiError({
+                throw new errors.ScaleError({
                     message: _response.error.errorMessage,
                 });
         }
@@ -69,13 +69,10 @@ export class Client {
      * ### **Note: Scale Video is only available for our Enterprise customers**. If you want to learn more, please contact our [sales team](https://scale.com/sales). This endpoint creates a `videoannotation` task. Given a series of images sampled from a video (which we will refer to as "frames"), Scale will annotate each frame with the Geometries (`box`, `polygon`, `line`, `point`, `cuboid,` and `ellipse`) you specify. The required parameter for this task is `geometries`. You can optionally provide additional markdown-enabled or Google Doc-based [instructions](https://scale.com/docs/instructions) via the `instruction` parameter. You may also optionally specify `events_to_annotate`, a list of strings describing [events section](/reference/events) to annotate in the video. If the request is successful, Scale will return the generated task object, at which point you should store the `task_id` to have a permanent reference to the task.
      */
     public async createGeneralAnnotation(
-        request: ScaleApi.VideoPlaybackAnnotationRequest
-    ): Promise<ScaleApi.VideoPlaybackAnnotationResponse> {
+        request: Scale.VideoPlaybackAnnotationRequest
+    ): Promise<Scale.VideoPlaybackAnnotationResponse> {
         const _response = await core.fetcher({
-            url: urlJoin(
-                this.options.environment ?? environments.ScaleApiEnvironment.Production,
-                "task/videoannotation"
-            ),
+            url: urlJoin(this.options.environment ?? environments.ScaleEnvironment.Production, "task/videoannotation"),
             method: "POST",
             headers: {
                 Authorization: core.BearerToken.toAuthorizationHeader(await core.Supplier.get(this.options.token)),
@@ -90,7 +87,7 @@ export class Client {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.ScaleApiError({
+            throw new errors.ScaleError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -98,14 +95,14 @@ export class Client {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.ScaleApiError({
+                throw new errors.ScaleError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.ScaleApiTimeoutError();
+                throw new errors.ScaleTimeoutError();
             case "unknown":
-                throw new errors.ScaleApiError({
+                throw new errors.ScaleError({
                     message: _response.error.errorMessage,
                 });
         }

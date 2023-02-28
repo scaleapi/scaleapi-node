@@ -10,7 +10,7 @@ import { Client as ProjectGroupsClient } from "../resources/projectGroups/client
 
 export declare namespace Client {
     interface Options {
-        environment?: environments.ScaleApiEnvironment | string;
+        environment?: environments.ScaleEnvironment | string;
         token?: core.Supplier<core.BearerToken>;
     }
 }

@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../..";
-import { ScaleApi } from "@fern-api/scale";
+import { Scale } from "@fern-api/scale";
 import * as core from "../../../../core";
 
 export const VideoPlaybackParams: core.serialization.ObjectSchema<
     serializers.VideoPlaybackParams.Raw,
-    ScaleApi.VideoPlaybackParams
+    Scale.VideoPlaybackParams
 > = core.serialization.object({
     attachment: core.serialization.string().optional(),
     frameRate: core.serialization.property("frame_rate", core.serialization.number().optional()),

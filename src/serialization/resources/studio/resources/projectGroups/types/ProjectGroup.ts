@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../../../..";
-import { ScaleApi } from "@fern-api/scale";
+import { Scale } from "@fern-api/scale";
 import * as core from "../../../../../../core";
 
 export const ProjectGroup: core.serialization.ObjectSchema<
     serializers.studio.ProjectGroup.Raw,
-    ScaleApi.studio.ProjectGroup
+    Scale.studio.ProjectGroup
 > = core.serialization.object({
     id: core.serialization.string().optional(),
     name: core.serialization.string().optional(),

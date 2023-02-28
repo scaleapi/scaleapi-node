@@ -249,9 +249,9 @@ __metadata:
   linkType: hard
 
 "@types/node@npm:*":
-  version: 18.14.0
-  resolution: "@types/node@npm:18.14.0"
-  checksum: d83fcf5e4ed544755dd9028f5cbb6b9d46235043159111bb2ad62223729aee581c0144a9f6df8ba73d74011db9ed4ebd7af2fd5e0996714e3beb508a5da8ac5c
+  version: 18.14.2
+  resolution: "@types/node@npm:18.14.2"
+  checksum: 53c07e721f6ae33de71306f6a0b75dae6066a4f55bd5484c93bd59ff25f0c5f004ceafeef509a4d0cb9e24a247efc34d50489bcc1b05a53ecc68e2fc088e65cb
   languageName: node
   linkType: hard
 
@@ -1163,9 +1163,9 @@ __metadata:
   linkType: hard
 
 "minipass@npm:^4.0.0":
-  version: 4.2.0
-  resolution: "minipass@npm:4.2.0"
-  checksum: 3c3ce269eacdcecb56b5dfe4bb4ab905d60fea1af4c967c7ed54baadfdd4af03e4d926567fb655957504fb4c9e2e7adbb2dc636927dfb56c829f2b25f1b2b3dd
+  version: 4.2.4
+  resolution: "minipass@npm:4.2.4"
+  checksum: c664f2ae4401408d1e7a6e4f50aca45f87b1b0634bc9261136df5c378e313e77355765f73f59c4a5abcadcdf43d83fcd3eb14e4a7cdcce8e36508e2290345753
   languageName: node
   linkType: hard
 
@@ -1355,13 +1355,13 @@ __metadata:
   linkType: hard
 
 "readable-stream@npm:^3.6.0":
-  version: 3.6.0
-  resolution: "readable-stream@npm:3.6.0"
+  version: 3.6.1
+  resolution: "readable-stream@npm:3.6.1"
   dependencies:
     inherits: ^2.0.3
     string_decoder: ^1.1.1
     util-deprecate: ^1.0.1
-  checksum: d4ea81502d3799439bb955a3a5d1d808592cf3133350ed352aeaa499647858b27b1c4013984900238b0873ec8d0d8defce72469fb7a83e61d53f5ad61cb80dc8
+  checksum: b7ab0508dba3c37277b9e43c0a970ea27635375698859a687f558c3c9393154b6c4f39c3aa5689641de183fffa26771bc1a45878ddde0236ad18fc8fdfde50ea
   languageName: node
   linkType: hard
 

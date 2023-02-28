@@ -3,10 +3,10 @@
  */
 
 import * as serializers from "../../..";
-import { ScaleApi } from "@fern-api/scale";
+import { Scale } from "@fern-api/scale";
 import * as core from "../../../../core";
 
-export const TaskParams: core.serialization.ObjectSchema<serializers.TaskParams.Raw, ScaleApi.TaskParams> =
+export const TaskParams: core.serialization.ObjectSchema<serializers.TaskParams.Raw, Scale.TaskParams> =
     core.serialization.object({
         attachment: core.serialization.string().optional(),
         geometries: core.serialization.lazyObject(async () => (await import("../../..")).TaskGeometries).optional(),

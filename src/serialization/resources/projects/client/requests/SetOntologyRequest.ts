@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../../..";
-import { ScaleApi } from "@fern-api/scale";
+import { Scale } from "@fern-api/scale";
 import * as core from "../../../../../core";
 
 export const SetOntologyRequest: core.serialization.Schema<
     serializers.SetOntologyRequest.Raw,
-    ScaleApi.SetOntologyRequest
+    Scale.SetOntologyRequest
 > = core.serialization.object({
     ontology: core.serialization.list(core.serialization.unknown()),
     name: core.serialization.string().optional(),

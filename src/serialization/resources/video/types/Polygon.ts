@@ -3,10 +3,10 @@
  */
 
 import * as serializers from "../../..";
-import { ScaleApi } from "@fern-api/scale";
+import { Scale } from "@fern-api/scale";
 import * as core from "../../../../core";
 
-export const Polygon: core.serialization.ObjectSchema<serializers.Polygon.Raw, ScaleApi.Polygon> =
+export const Polygon: core.serialization.ObjectSchema<serializers.Polygon.Raw, Scale.Polygon> =
     core.serialization.object({
         objectsToAnnotate: core.serialization.property(
             "objects_to_annotate",

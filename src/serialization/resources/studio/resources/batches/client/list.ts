@@ -3,13 +3,11 @@
  */
 
 import * as serializers from "../../../../..";
-import { ScaleApi } from "@fern-api/scale";
+import { Scale } from "@fern-api/scale";
 import * as core from "../../../../../../core";
 
-export const Response: core.serialization.Schema<
-    serializers.studio.batches.list.Response.Raw,
-    ScaleApi.studio.Batch[]
-> = core.serialization.list(core.serialization.lazyObject(async () => (await import("../../../../..")).studio.Batch));
+export const Response: core.serialization.Schema<serializers.studio.batches.list.Response.Raw, Scale.studio.Batch[]> =
+    core.serialization.list(core.serialization.lazyObject(async () => (await import("../../../../..")).studio.Batch));
 
 export declare namespace Response {
     type Raw = serializers.studio.Batch.Raw[];

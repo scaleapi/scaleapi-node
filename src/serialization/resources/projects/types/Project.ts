@@ -3,10 +3,10 @@
  */
 
 import * as serializers from "../../..";
-import { ScaleApi } from "@fern-api/scale";
+import { Scale } from "@fern-api/scale";
 import * as core from "../../../../core";
 
-export const Project: core.serialization.ObjectSchema<serializers.Project.Raw, ScaleApi.Project> =
+export const Project: core.serialization.ObjectSchema<serializers.Project.Raw, Scale.Project> =
     core.serialization.object({
         type: core.serialization.string().optional(),
         name: core.serialization.string().optional(),

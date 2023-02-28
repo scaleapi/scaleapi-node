@@ -1,4 +1,4 @@
-export * as ScaleApi from "./api";
-export { ScaleApiClient } from "./Client";
-export { ScaleApiEnvironment } from "./environments";
-export { ScaleApiError, ScaleApiTimeoutError } from "./errors";
+export * as Scale from "./api";
+export { ScaleClient } from "./Client";
+export { ScaleEnvironment } from "./environments";
+export { ScaleError, ScaleTimeoutError } from "./errors";

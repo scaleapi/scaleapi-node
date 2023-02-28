@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../../../../..";
-import { ScaleApi } from "@fern-api/scale";
+import { Scale } from "@fern-api/scale";
 import * as core from "../../../../../../../core";
 
 export const SetBatchPrioritiesRequest: core.serialization.Schema<
     serializers.studio.SetBatchPrioritiesRequest.Raw,
-    ScaleApi.studio.SetBatchPrioritiesRequest
+    Scale.studio.SetBatchPrioritiesRequest
 > = core.serialization.object({
     groups: core.serialization
         .list(core.serialization.lazyObject(async () => (await import("../../../../../..")).studio.BatchName))

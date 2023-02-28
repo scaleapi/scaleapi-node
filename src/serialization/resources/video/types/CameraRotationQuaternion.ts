@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../..";
-import { ScaleApi } from "@fern-api/scale";
+import { Scale } from "@fern-api/scale";
 import * as core from "../../../../core";
 
 export const CameraRotationQuaternion: core.serialization.ObjectSchema<
     serializers.CameraRotationQuaternion.Raw,
-    ScaleApi.CameraRotationQuaternion
+    Scale.CameraRotationQuaternion
 > = core.serialization.object({
     w: core.serialization.number().optional(),
     x: core.serialization.number().optional(),

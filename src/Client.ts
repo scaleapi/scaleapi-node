@@ -11,15 +11,15 @@ import { Client as TasksClient } from "./api/resources/tasks/client/Client";
 import { Client as TeammatesClient } from "./api/resources/teammates/client/Client";
 import { Client as VideoClient } from "./api/resources/video/client/Client";
 
-export declare namespace ScaleApiClient {
+export declare namespace ScaleClient {
     interface Options {
-        environment?: environments.ScaleApiEnvironment | string;
+        environment?: environments.ScaleEnvironment | string;
         token?: core.Supplier<core.BearerToken>;
     }
 }
 
-export class ScaleApiClient {
-    constructor(private readonly options: ScaleApiClient.Options) {}
+export class ScaleClient {
+    constructor(private readonly options: ScaleClient.Options) {}
 
     #batches: BatchesClient | undefined;
 

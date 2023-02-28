@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../..";
-import { ScaleApi } from "@fern-api/scale";
+import { Scale } from "@fern-api/scale";
 import * as core from "../../../../core";
 
 export const VideoPlaybackAnnotationResponse: core.serialization.ObjectSchema<
     serializers.VideoPlaybackAnnotationResponse.Raw,
-    ScaleApi.VideoPlaybackAnnotationResponse
+    Scale.VideoPlaybackAnnotationResponse
 > = core.serialization.object({
     taskId: core.serialization.property("task_id", core.serialization.string().optional()),
     createdAt: core.serialization.property("created_at", core.serialization.string().optional()),

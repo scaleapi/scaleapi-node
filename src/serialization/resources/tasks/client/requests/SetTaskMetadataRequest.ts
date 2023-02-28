@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../../..";
-import { ScaleApi } from "@fern-api/scale";
+import { Scale } from "@fern-api/scale";
 import * as core from "../../../../../core";
 
 export const SetTaskMetadataRequest: core.serialization.Schema<
     serializers.SetTaskMetadataRequest.Raw,
-    ScaleApi.SetTaskMetadataRequest
+    Scale.SetTaskMetadataRequest
 > = core.serialization.object({
     docs: core.serialization.record(core.serialization.string(), core.serialization.unknown()),
 });

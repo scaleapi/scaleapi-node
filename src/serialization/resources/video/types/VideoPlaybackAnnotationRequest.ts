@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../..";
-import { ScaleApi } from "@fern-api/scale";
+import { Scale } from "@fern-api/scale";
 import * as core from "../../../../core";
 
 export const VideoPlaybackAnnotationRequest: core.serialization.ObjectSchema<
     serializers.VideoPlaybackAnnotationRequest.Raw,
-    ScaleApi.VideoPlaybackAnnotationRequest
+    Scale.VideoPlaybackAnnotationRequest
 > = core.serialization.object({
     project: core.serialization.string().optional(),
     batch: core.serialization.string().optional(),

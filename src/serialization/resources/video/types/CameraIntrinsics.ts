@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../..";
-import { ScaleApi } from "@fern-api/scale";
+import { Scale } from "@fern-api/scale";
 import * as core from "../../../../core";
 
 export const CameraIntrinsics: core.serialization.ObjectSchema<
     serializers.CameraIntrinsics.Raw,
-    ScaleApi.CameraIntrinsics
+    Scale.CameraIntrinsics
 > = core.serialization.object({
     fx: core.serialization.number().optional(),
     fy: core.serialization.number().optional(),

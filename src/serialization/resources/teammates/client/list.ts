@@ -3,10 +3,10 @@
  */
 
 import * as serializers from "../../..";
-import { ScaleApi } from "@fern-api/scale";
+import { Scale } from "@fern-api/scale";
 import * as core from "../../../../core";
 
-export const Response: core.serialization.Schema<serializers.teammates.list.Response.Raw, ScaleApi.Teammate[]> =
+export const Response: core.serialization.Schema<serializers.teammates.list.Response.Raw, Scale.Teammate[]> =
     core.serialization.list(core.serialization.lazyObject(async () => (await import("../../..")).Teammate));
 
 export declare namespace Response {

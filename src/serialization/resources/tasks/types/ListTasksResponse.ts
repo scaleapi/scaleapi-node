@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../..";
-import { ScaleApi } from "@fern-api/scale";
+import { Scale } from "@fern-api/scale";
 import * as core from "../../../../core";
 
 export const ListTasksResponse: core.serialization.ObjectSchema<
     serializers.ListTasksResponse.Raw,
-    ScaleApi.ListTasksResponse
+    Scale.ListTasksResponse
 > = core.serialization.object({
     docs: core.serialization
         .list(core.serialization.lazyObject(async () => (await import("../../..")).Task))

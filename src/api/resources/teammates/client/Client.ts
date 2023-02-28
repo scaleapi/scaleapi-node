@@ -4,14 +4,14 @@
 
 import * as environments from "../../../../environments";
 import * as core from "../../../../core";
-import { ScaleApi } from "@fern-api/scale";
+import { Scale } from "@fern-api/scale";
 import urlJoin from "url-join";
 import * as serializers from "../../../../serialization";
 import * as errors from "../../../../errors";
 
 export declare namespace Client {
     interface Options {
-        environment?: environments.ScaleApiEnvironment | string;
+        environment?: environments.ScaleEnvironment | string;
         token?: core.Supplier<core.BearerToken>;
     }
 }
@@ -22,9 +22,9 @@ export class Client {
     /**
      * Retrieves basic information about all team members associate with your account.
      */
-    public async list(): Promise<ScaleApi.Teammate[]> {
+    public async list(): Promise<Scale.Teammate[]> {
         const _response = await core.fetcher({
-            url: urlJoin(this.options.environment ?? environments.ScaleApiEnvironment.Production, "/teams"),
+            url: urlJoin(this.options.environment ?? environments.ScaleEnvironment.Production, "/teams"),
             method: "GET",
             headers: {
                 Authorization: core.BearerToken.toAuthorizationHeader(await core.Supplier.get(this.options.token)),
@@ -38,7 +38,7 @@ export class Client {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.ScaleApiError({
+            throw new errors.ScaleError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -46,14 +46,14 @@ export class Client {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.ScaleApiError({
+                throw new errors.ScaleError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.ScaleApiTimeoutError();
+                throw new errors.ScaleTimeoutError();
             case "unknown":
-                throw new errors.ScaleApiError({
+                throw new errors.ScaleError({
                     message: _response.error.errorMessage,
                 });
         }
@@ -62,9 +62,9 @@ export class Client {
     /**
      * Invites one or multiple users by email to your team. `team_role` can be either `labeler`, `member`, or `manager`. Returns information about all team members.
      */
-    public async invite(request: ScaleApi.TeamsInvite): Promise<void> {
+    public async invite(request: Scale.TeamsInvite): Promise<void> {
         const _response = await core.fetcher({
-            url: urlJoin(this.options.environment ?? environments.ScaleApiEnvironment.Production, "/teams/invite"),
+            url: urlJoin(this.options.environment ?? environments.ScaleEnvironment.Production, "/teams/invite"),
             method: "POST",
             headers: {
                 Authorization: core.BearerToken.toAuthorizationHeader(await core.Supplier.get(this.options.token)),
@@ -76,7 +76,7 @@ export class Client {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.ScaleApiError({
+            throw new errors.ScaleError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -84,14 +84,14 @@ export class Client {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.ScaleApiError({
+                throw new errors.ScaleError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.ScaleApiTimeoutError();
+                throw new errors.ScaleTimeoutError();
             case "unknown":
-                throw new errors.ScaleApiError({
+                throw new errors.ScaleError({
                     message: _response.error.errorMessage,
                 });
         }
@@ -100,9 +100,9 @@ export class Client {
     /**
      * Changes the role of non-admin team members. `emails` should be a list of emails of team members who are either labelers, members, managers, or disabled. `team_role` should be one of `labeler`, `member`, or `manager`. Returns information about all members of your team.
      */
-    public async updateRole(request: ScaleApi.TeamsInvite): Promise<void> {
+    public async updateRole(request: Scale.TeamsInvite): Promise<void> {
         const _response = await core.fetcher({
-            url: urlJoin(this.options.environment ?? environments.ScaleApiEnvironment.Production, "/teams/set_role"),
+            url: urlJoin(this.options.environment ?? environments.ScaleEnvironment.Production, "/teams/set_role"),
             method: "POST",
             headers: {
                 Authorization: core.BearerToken.toAuthorizationHeader(await core.Supplier.get(this.options.token)),
@@ -114,7 +114,7 @@ export class Client {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.ScaleApiError({
+            throw new errors.ScaleError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -122,14 +122,14 @@ export class Client {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.ScaleApiError({
+                throw new errors.ScaleError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.ScaleApiTimeoutError();
+                throw new errors.ScaleTimeoutError();
             case "unknown":
-                throw new errors.ScaleApiError({
+                throw new errors.ScaleError({
                     message: _response.error.errorMessage,
                 });
         }

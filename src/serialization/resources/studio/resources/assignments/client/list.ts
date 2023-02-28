@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../../../..";
-import { ScaleApi } from "@fern-api/scale";
+import { Scale } from "@fern-api/scale";
 import * as core from "../../../../../../core";
 
 export const Response: core.serialization.Schema<
     serializers.studio.assignments.list.Response.Raw,
-    Record<string, ScaleApi.studio.Assignment | undefined>
+    Record<string, Scale.studio.Assignment | undefined>
 > = core.serialization.record(
     core.serialization.string(),
     core.serialization.lazy(async () => (await import("../../../../..")).studio.Assignment).optional()

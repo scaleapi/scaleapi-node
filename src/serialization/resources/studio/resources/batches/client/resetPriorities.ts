@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../../../..";
-import { ScaleApi } from "@fern-api/scale";
+import { Scale } from "@fern-api/scale";
 import * as core from "../../../../../../core";
 
 export const Response: core.serialization.Schema<
     serializers.studio.batches.resetPriorities.Response.Raw,
-    ScaleApi.studio.Batch[]
+    Scale.studio.Batch[]
 > = core.serialization.list(core.serialization.lazyObject(async () => (await import("../../../../..")).studio.Batch));
 
 export declare namespace Response {

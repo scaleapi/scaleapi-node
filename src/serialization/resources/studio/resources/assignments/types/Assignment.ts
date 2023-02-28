@@ -3,10 +3,10 @@
  */
 
 import * as serializers from "../../../../..";
-import { ScaleApi } from "@fern-api/scale";
+import { Scale } from "@fern-api/scale";
 import * as core from "../../../../../../core";
 
-export const Assignment: core.serialization.Schema<serializers.studio.Assignment.Raw, ScaleApi.studio.Assignment> =
+export const Assignment: core.serialization.Schema<serializers.studio.Assignment.Raw, Scale.studio.Assignment> =
     core.serialization.list(core.serialization.string());
 
 export declare namespace Assignment {

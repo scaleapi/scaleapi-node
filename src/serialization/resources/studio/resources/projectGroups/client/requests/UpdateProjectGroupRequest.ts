@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../../../../..";
-import { ScaleApi } from "@fern-api/scale";
+import { Scale } from "@fern-api/scale";
 import * as core from "../../../../../../../core";
 
 export const UpdateProjectGroupRequest: core.serialization.Schema<
     serializers.studio.UpdateProjectGroupRequest.Raw,
-    ScaleApi.studio.UpdateProjectGroupRequest
+    Scale.studio.UpdateProjectGroupRequest
 > = core.serialization.object({
     addEmails: core.serialization.property(
         "add_emails",

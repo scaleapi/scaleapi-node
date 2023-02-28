@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../..";
-import { ScaleApi } from "@fern-api/scale";
+import { Scale } from "@fern-api/scale";
 import * as core from "../../../../core";
 
 export const BatchStatusResponse: core.serialization.ObjectSchema<
     serializers.BatchStatusResponse.Raw,
-    ScaleApi.BatchStatusResponse
+    Scale.BatchStatusResponse
 > = core.serialization.object({
     status: core.serialization.lazy(async () => (await import("../../..")).BatchStatus).optional(),
     pending: core.serialization.number().optional(),

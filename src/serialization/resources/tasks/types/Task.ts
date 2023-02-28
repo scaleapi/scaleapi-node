@@ -3,10 +3,10 @@
  */
 
 import * as serializers from "../../..";
-import { ScaleApi } from "@fern-api/scale";
+import { Scale } from "@fern-api/scale";
 import * as core from "../../../../core";
 
-export const Task: core.serialization.ObjectSchema<serializers.Task.Raw, ScaleApi.Task> = core.serialization.object({
+export const Task: core.serialization.ObjectSchema<serializers.Task.Raw, Scale.Task> = core.serialization.object({
     taskId: core.serialization.property("task_id", core.serialization.string().optional()),
     createdAt: core.serialization.property("created_at", core.serialization.string().optional()),
     callbackUrl: core.serialization.property("callback_url", core.serialization.string().optional()),

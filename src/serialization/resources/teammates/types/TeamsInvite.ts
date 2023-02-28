@@ -3,10 +3,10 @@
  */
 
 import * as serializers from "../../..";
-import { ScaleApi } from "@fern-api/scale";
+import { Scale } from "@fern-api/scale";
 import * as core from "../../../../core";
 
-export const TeamsInvite: core.serialization.ObjectSchema<serializers.TeamsInvite.Raw, ScaleApi.TeamsInvite> =
+export const TeamsInvite: core.serialization.ObjectSchema<serializers.TeamsInvite.Raw, Scale.TeamsInvite> =
     core.serialization.object({
         emails: core.serialization.list(core.serialization.string()),
         teamRole: core.serialization.property("team_role", core.serialization.string()),

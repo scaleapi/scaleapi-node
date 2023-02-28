@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../..";
-import { ScaleApi } from "@fern-api/scale";
+import { Scale } from "@fern-api/scale";
 import * as core from "../../../../core";
 
 export const ProjectPramHistory: core.serialization.ObjectSchema<
     serializers.ProjectPramHistory.Raw,
-    ScaleApi.ProjectPramHistory
+    Scale.ProjectPramHistory
 > = core.serialization.object({
     instruction: core.serialization.string().optional(),
     version: core.serialization.number().optional(),

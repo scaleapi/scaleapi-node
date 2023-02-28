@@ -1,2 +1,2 @@
-export { ScaleApiError } from "./ScaleApiError";
-export { ScaleApiTimeoutError } from "./ScaleApiTimeoutError";
+export { ScaleError } from "./ScaleError";
+export { ScaleTimeoutError } from "./ScaleTimeoutError";

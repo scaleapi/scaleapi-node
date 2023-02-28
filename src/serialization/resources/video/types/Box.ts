@@ -3,10 +3,10 @@
  */
 
 import * as serializers from "../../..";
-import { ScaleApi } from "@fern-api/scale";
+import { Scale } from "@fern-api/scale";
 import * as core from "../../../../core";
 
-export const Box: core.serialization.ObjectSchema<serializers.Box.Raw, ScaleApi.Box> = core.serialization.object({
+export const Box: core.serialization.ObjectSchema<serializers.Box.Raw, Scale.Box> = core.serialization.object({
     objectsToAnnotate: core.serialization.property(
         "objects_to_annotate",
         core.serialization.list(core.serialization.unknown()).optional()

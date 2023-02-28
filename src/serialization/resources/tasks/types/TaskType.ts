@@ -3,36 +3,35 @@
  */
 
 import * as serializers from "../../..";
-import { ScaleApi } from "@fern-api/scale";
+import { Scale } from "@fern-api/scale";
 import * as core from "../../../../core";
 
-export const TaskType: core.serialization.Schema<serializers.TaskType.Raw, ScaleApi.TaskType> =
-    core.serialization.enum_([
-        "annotation",
-        "categorization",
-        "comparison",
-        "cuboidannotation",
-        "datacollection",
-        "documentmodel",
-        "documenttranscription",
-        "imageannotation",
-        "laneannotation",
-        "lidarannotation",
-        "lidarlinking",
-        "lidarsegmentation",
-        "lidartopdown",
-        "lineannotation",
-        "namedentityrecognition",
-        "pointannotation",
-        "polygonannotation",
-        "segmentannotation",
-        "transcription",
-        "textcollection",
-        "videoannotation",
-        "videoboxannotation",
-        "videoplaybackannotation",
-        "videocuboidannotation",
-    ]);
+export const TaskType: core.serialization.Schema<serializers.TaskType.Raw, Scale.TaskType> = core.serialization.enum_([
+    "annotation",
+    "categorization",
+    "comparison",
+    "cuboidannotation",
+    "datacollection",
+    "documentmodel",
+    "documenttranscription",
+    "imageannotation",
+    "laneannotation",
+    "lidarannotation",
+    "lidarlinking",
+    "lidarsegmentation",
+    "lidartopdown",
+    "lineannotation",
+    "namedentityrecognition",
+    "pointannotation",
+    "polygonannotation",
+    "segmentannotation",
+    "transcription",
+    "textcollection",
+    "videoannotation",
+    "videoboxannotation",
+    "videoplaybackannotation",
+    "videocuboidannotation",
+]);
 
 export declare namespace TaskType {
     type Raw =

@@ -3,10 +3,10 @@
  */
 
 import * as serializers from "../../..";
-import { ScaleApi } from "@fern-api/scale";
+import { Scale } from "@fern-api/scale";
 import * as core from "../../../../core";
 
-export const Geometries: core.serialization.ObjectSchema<serializers.Geometries.Raw, ScaleApi.Geometries> =
+export const Geometries: core.serialization.ObjectSchema<serializers.Geometries.Raw, Scale.Geometries> =
     core.serialization.object({
         box: core.serialization.lazyObject(async () => (await import("../../..")).Box).optional(),
         polygon: core.serialization.lazyObject(async () => (await import("../../..")).Polygon).optional(),

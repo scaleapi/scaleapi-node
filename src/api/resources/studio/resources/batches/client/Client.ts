@@ -4,14 +4,14 @@
 
 import * as environments from "../../../../../../environments";
 import * as core from "../../../../../../core";
-import { ScaleApi } from "@fern-api/scale";
+import { Scale } from "@fern-api/scale";
 import urlJoin from "url-join";
 import * as serializers from "../../../../../../serialization";
 import * as errors from "../../../../../../errors";
 
 export declare namespace Client {
     interface Options {
-        environment?: environments.ScaleApiEnvironment | string;
+        environment?: environments.ScaleEnvironment | string;
         token?: core.Supplier<core.BearerToken>;
     }
 }
@@ -22,9 +22,9 @@ export class Client {
     /**
      * Returns basic information about all pending batches, in order of priority.
      */
-    public async list(): Promise<ScaleApi.studio.Batch[]> {
+    public async list(): Promise<Scale.studio.Batch[]> {
         const _response = await core.fetcher({
-            url: urlJoin(this.options.environment ?? environments.ScaleApiEnvironment.Production, "/studio/batches"),
+            url: urlJoin(this.options.environment ?? environments.ScaleEnvironment.Production, "/studio/batches"),
             method: "GET",
             headers: {
                 Authorization: core.BearerToken.toAuthorizationHeader(await core.Supplier.get(this.options.token)),
@@ -38,7 +38,7 @@ export class Client {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.ScaleApiError({
+            throw new errors.ScaleError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -46,14 +46,14 @@ export class Client {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.ScaleApiError({
+                throw new errors.ScaleError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.ScaleApiTimeoutError();
+                throw new errors.ScaleTimeoutError();
             case "unknown":
-                throw new errors.ScaleApiError({
+                throw new errors.ScaleError({
                     message: _response.error.errorMessage,
                 });
         }
@@ -64,11 +64,11 @@ export class Client {
      */
     public async setGroups(
         batch: string,
-        request: ScaleApi.studio.SetBatchGroupRequest = {}
-    ): Promise<ScaleApi.studio.Batch> {
+        request: Scale.studio.SetBatchGroupRequest = {}
+    ): Promise<Scale.studio.Batch> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.ScaleApiEnvironment.Production,
+                this.options.environment ?? environments.ScaleEnvironment.Production,
                 `/studio/batches/${batch}`
             ),
             method: "PUT",
@@ -84,7 +84,7 @@ export class Client {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.ScaleApiError({
+            throw new errors.ScaleError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -92,14 +92,14 @@ export class Client {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.ScaleApiError({
+                throw new errors.ScaleError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.ScaleApiTimeoutError();
+                throw new errors.ScaleTimeoutError();
             case "unknown":
-                throw new errors.ScaleApiError({
+                throw new errors.ScaleError({
                     message: _response.error.errorMessage,
                 });
         }
@@ -108,12 +108,10 @@ export class Client {
     /**
      * Sets the priority of your batches based on the order of your input. The batches field of the body must be an array of objects, each with variable “name”, each representing a pending batch. You can use the response from the batches endpoint to retrieve all pending Studio batches, then rearrange the batches in the returned array. You must include ALL of the pending batches in your request. Returns all batches in new priority order.
      */
-    public async setPriorities(
-        request: ScaleApi.studio.SetBatchPrioritiesRequest = {}
-    ): Promise<ScaleApi.studio.Batch[]> {
+    public async setPriorities(request: Scale.studio.SetBatchPrioritiesRequest = {}): Promise<Scale.studio.Batch[]> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.ScaleApiEnvironment.Production,
+                this.options.environment ?? environments.ScaleEnvironment.Production,
                 "/studio/batches/set_priorities"
             ),
             method: "POST",
@@ -130,7 +128,7 @@ export class Client {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.ScaleApiError({
+            throw new errors.ScaleError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -138,14 +136,14 @@ export class Client {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.ScaleApiError({
+                throw new errors.ScaleError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.ScaleApiTimeoutError();
+                throw new errors.ScaleTimeoutError();
             case "unknown":
-                throw new errors.ScaleApiError({
+                throw new errors.ScaleError({
                     message: _response.error.errorMessage,
                 });
         }
@@ -154,10 +152,10 @@ export class Client {
     /**
      * Restores batch priority order to default order. Default order is sorted by calibration batches first, then by creation date. Returns all batches in new priority order.
      */
-    public async resetPriorities(): Promise<ScaleApi.studio.Batch[]> {
+    public async resetPriorities(): Promise<Scale.studio.Batch[]> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.ScaleApiEnvironment.Production,
+                this.options.environment ?? environments.ScaleEnvironment.Production,
                 "/studio/batches/reset_priorities"
             ),
             method: "POST",
@@ -173,7 +171,7 @@ export class Client {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.ScaleApiError({
+            throw new errors.ScaleError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -181,14 +179,14 @@ export class Client {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.ScaleApiError({
+                throw new errors.ScaleError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.ScaleApiTimeoutError();
+                throw new errors.ScaleTimeoutError();
             case "unknown":
-                throw new errors.ScaleApiError({
+                throw new errors.ScaleError({
                     message: _response.error.errorMessage,
                 });
         }

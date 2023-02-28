@@ -3,27 +3,26 @@
  */
 
 import * as serializers from "../../..";
-import { ScaleApi } from "@fern-api/scale";
+import { Scale } from "@fern-api/scale";
 import * as core from "../../../../core";
 
-export const Cuboid: core.serialization.ObjectSchema<serializers.Cuboid.Raw, ScaleApi.Cuboid> =
-    core.serialization.object({
-        objectsToAnnotate: core.serialization.property(
-            "objects_to_annotate",
-            core.serialization.list(core.serialization.unknown()).optional()
-        ),
-        minHeight: core.serialization.property("min_height", core.serialization.number().optional()),
-        minWidth: core.serialization.property("min_width", core.serialization.number().optional()),
-        cameraIntrinsics: core.serialization.property(
-            "camera_intrinsics",
-            core.serialization.lazyObject(async () => (await import("../../..")).CameraIntrinsics).optional()
-        ),
-        cameraRotationQuaternion: core.serialization.property(
-            "camera_rotation_quaternion",
-            core.serialization.lazyObject(async () => (await import("../../..")).CameraRotationQuaternion).optional()
-        ),
-        cameraHeight: core.serialization.property("camera_height", core.serialization.number().optional()),
-    });
+export const Cuboid: core.serialization.ObjectSchema<serializers.Cuboid.Raw, Scale.Cuboid> = core.serialization.object({
+    objectsToAnnotate: core.serialization.property(
+        "objects_to_annotate",
+        core.serialization.list(core.serialization.unknown()).optional()
+    ),
+    minHeight: core.serialization.property("min_height", core.serialization.number().optional()),
+    minWidth: core.serialization.property("min_width", core.serialization.number().optional()),
+    cameraIntrinsics: core.serialization.property(
+        "camera_intrinsics",
+        core.serialization.lazyObject(async () => (await import("../../..")).CameraIntrinsics).optional()
+    ),
+    cameraRotationQuaternion: core.serialization.property(
+        "camera_rotation_quaternion",
+        core.serialization.lazyObject(async () => (await import("../../..")).CameraRotationQuaternion).optional()
+    ),
+    cameraHeight: core.serialization.property("camera_height", core.serialization.number().optional()),
+});
 
 export declare namespace Cuboid {
     interface Raw {

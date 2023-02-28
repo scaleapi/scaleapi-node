@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../../../..";
-import { ScaleApi } from "@fern-api/scale";
+import { Scale } from "@fern-api/scale";
 import * as core from "../../../../../../core";
 
 export const AssignTeammate: core.serialization.ObjectSchema<
     serializers.studio.AssignTeammate.Raw,
-    ScaleApi.studio.AssignTeammate
+    Scale.studio.AssignTeammate
 > = core.serialization.object({
     emails: core.serialization.list(core.serialization.string()),
     projects: core.serialization.list(core.serialization.string()),

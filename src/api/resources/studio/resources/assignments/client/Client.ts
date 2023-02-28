@@ -4,14 +4,14 @@
 
 import * as environments from "../../../../../../environments";
 import * as core from "../../../../../../core";
-import { ScaleApi } from "@fern-api/scale";
+import { Scale } from "@fern-api/scale";
 import urlJoin from "url-join";
 import * as serializers from "../../../../../../serialization";
 import * as errors from "../../../../../../errors";
 
 export declare namespace Client {
     interface Options {
-        environment?: environments.ScaleApiEnvironment | string;
+        environment?: environments.ScaleEnvironment | string;
         token?: core.Supplier<core.BearerToken>;
     }
 }
@@ -22,12 +22,9 @@ export class Client {
     /**
      * Gets the current project assignments of all active users in your team (does not include “invited” or “disabled” team members).
      */
-    public async list(): Promise<Record<string, ScaleApi.studio.Assignment | undefined>> {
+    public async list(): Promise<Record<string, Scale.studio.Assignment | undefined>> {
         const _response = await core.fetcher({
-            url: urlJoin(
-                this.options.environment ?? environments.ScaleApiEnvironment.Production,
-                "/studio/assignments"
-            ),
+            url: urlJoin(this.options.environment ?? environments.ScaleEnvironment.Production, "/studio/assignments"),
             method: "GET",
             headers: {
                 Authorization: core.BearerToken.toAuthorizationHeader(await core.Supplier.get(this.options.token)),
@@ -41,7 +38,7 @@ export class Client {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.ScaleApiError({
+            throw new errors.ScaleError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -49,14 +46,14 @@ export class Client {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.ScaleApiError({
+                throw new errors.ScaleError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.ScaleApiTimeoutError();
+                throw new errors.ScaleTimeoutError();
             case "unknown":
-                throw new errors.ScaleApiError({
+                throw new errors.ScaleError({
                     message: _response.error.errorMessage,
                 });
         }
@@ -65,10 +62,10 @@ export class Client {
     /**
      * Assigns provided projects to specified team members. Returns all team members and their assignments.
      */
-    public async assignTeammate(request: ScaleApi.studio.AssignTeammate): Promise<void> {
+    public async assignTeammate(request: Scale.studio.AssignTeammate): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.ScaleApiEnvironment.Production,
+                this.options.environment ?? environments.ScaleEnvironment.Production,
                 "/studio/assignments/add"
             ),
             method: "POST",
@@ -82,7 +79,7 @@ export class Client {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.ScaleApiError({
+            throw new errors.ScaleError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -90,14 +87,14 @@ export class Client {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.ScaleApiError({
+                throw new errors.ScaleError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.ScaleApiTimeoutError();
+                throw new errors.ScaleTimeoutError();
             case "unknown":
-                throw new errors.ScaleApiError({
+                throw new errors.ScaleError({
                     message: _response.error.errorMessage,
                 });
         }
@@ -106,10 +103,10 @@ export class Client {
     /**
      * Unassigns provided projects from specified team members. Returns all team members and their assignments.
      */
-    public async unassignTeammate(request: ScaleApi.studio.AssignTeammate): Promise<void> {
+    public async unassignTeammate(request: Scale.studio.AssignTeammate): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.ScaleApiEnvironment.Production,
+                this.options.environment ?? environments.ScaleEnvironment.Production,
                 "/studio/assignments/remove"
             ),
             method: "POST",
@@ -123,7 +120,7 @@ export class Client {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.ScaleApiError({
+            throw new errors.ScaleError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -131,14 +128,14 @@ export class Client {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.ScaleApiError({
+                throw new errors.ScaleError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.ScaleApiTimeoutError();
+                throw new errors.ScaleTimeoutError();
             case "unknown":
-                throw new errors.ScaleApiError({
+                throw new errors.ScaleError({
                     message: _response.error.errorMessage,
                 });
         }

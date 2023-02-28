@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../..";
-import { ScaleApi } from "@fern-api/scale";
+import { Scale } from "@fern-api/scale";
 import * as core from "../../../../core";
 
 export const AnnotationAttribute: core.serialization.ObjectSchema<
     serializers.AnnotationAttribute.Raw,
-    ScaleApi.AnnotationAttribute
+    Scale.AnnotationAttribute
 > = core.serialization.object({
     type: core.serialization.string().optional(),
     description: core.serialization.string().optional(),

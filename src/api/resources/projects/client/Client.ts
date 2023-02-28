@@ -4,14 +4,14 @@
 
 import * as environments from "../../../../environments";
 import * as core from "../../../../core";
-import { ScaleApi } from "@fern-api/scale";
+import { Scale } from "@fern-api/scale";
 import urlJoin from "url-join";
 import * as serializers from "../../../../serialization";
 import * as errors from "../../../../errors";
 
 export declare namespace Client {
     interface Options {
-        environment?: environments.ScaleApiEnvironment | string;
+        environment?: environments.ScaleEnvironment | string;
         token?: core.Supplier<core.BearerToken>;
     }
 }
@@ -22,7 +22,7 @@ export class Client {
     /**
      * List information for all projects. **Note:** No parameters required. Optionally, set a boolean value for `archived` to only list information for all (un)archived projects.
      */
-    public async list(request: ScaleApi.ListProjectsRequest = {}): Promise<ScaleApi.Project[]> {
+    public async list(request: Scale.ListProjectsRequest = {}): Promise<Scale.Project[]> {
         const { archived } = request;
         const _queryParams = new URLSearchParams();
         if (archived != null) {
@@ -30,7 +30,7 @@ export class Client {
         }
 
         const _response = await core.fetcher({
-            url: urlJoin(this.options.environment ?? environments.ScaleApiEnvironment.Production, "/projects"),
+            url: urlJoin(this.options.environment ?? environments.ScaleEnvironment.Production, "/projects"),
             method: "GET",
             headers: {
                 Authorization: core.BearerToken.toAuthorizationHeader(await core.Supplier.get(this.options.token)),
@@ -45,7 +45,7 @@ export class Client {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.ScaleApiError({
+            throw new errors.ScaleError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -53,14 +53,14 @@ export class Client {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.ScaleApiError({
+                throw new errors.ScaleError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.ScaleApiTimeoutError();
+                throw new errors.ScaleTimeoutError();
             case "unknown":
-                throw new errors.ScaleApiError({
+                throw new errors.ScaleError({
                     message: _response.error.errorMessage,
                 });
         }
@@ -69,9 +69,9 @@ export class Client {
     /**
      *
      */
-    public async create(request: ScaleApi.CreateProjectRequest): Promise<ScaleApi.Project> {
+    public async create(request: Scale.CreateProjectRequest): Promise<Scale.Project> {
         const _response = await core.fetcher({
-            url: urlJoin(this.options.environment ?? environments.ScaleApiEnvironment.Production, "/projects"),
+            url: urlJoin(this.options.environment ?? environments.ScaleEnvironment.Production, "/projects"),
             method: "POST",
             headers: {
                 Authorization: core.BearerToken.toAuthorizationHeader(await core.Supplier.get(this.options.token)),
@@ -85,7 +85,7 @@ export class Client {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.ScaleApiError({
+            throw new errors.ScaleError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -93,14 +93,14 @@ export class Client {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.ScaleApiError({
+                throw new errors.ScaleError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.ScaleApiTimeoutError();
+                throw new errors.ScaleTimeoutError();
             case "unknown":
-                throw new errors.ScaleApiError({
+                throw new errors.ScaleError({
                     message: _response.error.errorMessage,
                 });
         }
@@ -109,9 +109,9 @@ export class Client {
     /**
      * Retrieve information about a single project.
      */
-    public async get(name: string): Promise<ScaleApi.Project> {
+    public async get(name: string): Promise<Scale.Project> {
         const _response = await core.fetcher({
-            url: urlJoin(this.options.environment ?? environments.ScaleApiEnvironment.Production, `/projects/${name}`),
+            url: urlJoin(this.options.environment ?? environments.ScaleEnvironment.Production, `/projects/${name}`),
             method: "GET",
             headers: {
                 Authorization: core.BearerToken.toAuthorizationHeader(await core.Supplier.get(this.options.token)),
@@ -124,7 +124,7 @@ export class Client {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.ScaleApiError({
+            throw new errors.ScaleError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -132,14 +132,14 @@ export class Client {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.ScaleApiError({
+                throw new errors.ScaleError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.ScaleApiTimeoutError();
+                throw new errors.ScaleTimeoutError();
             case "unknown":
-                throw new errors.ScaleApiError({
+                throw new errors.ScaleError({
                     message: _response.error.errorMessage,
                 });
         }
@@ -150,11 +150,11 @@ export class Client {
      */
     public async updateParameters(
         name: string,
-        request: ScaleApi.UpdateProjectParametersRequest = {}
-    ): Promise<ScaleApi.Project> {
+        request: Scale.UpdateProjectParametersRequest = {}
+    ): Promise<Scale.Project> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.ScaleApiEnvironment.Production,
+                this.options.environment ?? environments.ScaleEnvironment.Production,
                 `/projects/${name}/setParams`
             ),
             method: "POST",
@@ -170,7 +170,7 @@ export class Client {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.ScaleApiError({
+            throw new errors.ScaleError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -178,14 +178,14 @@ export class Client {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.ScaleApiError({
+                throw new errors.ScaleError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.ScaleApiTimeoutError();
+                throw new errors.ScaleTimeoutError();
             case "unknown":
-                throw new errors.ScaleApiError({
+                throw new errors.ScaleError({
                     message: _response.error.errorMessage,
                 });
         }
@@ -194,10 +194,10 @@ export class Client {
     /**
      * You can set ontologies on a project. Ontologies will be referenced by the tasks of a project. Projects keep a history of the ontologies they were set with. The ontology can be composed of a list of strings or [OntologyChoice](/reference/ontology-nesting-and-options) objects. Ontology choices and their subchoices must be unique throughout the ontology.
      */
-    public async setOntology(name: string, request: ScaleApi.SetOntologyRequest): Promise<void> {
+    public async setOntology(name: string, request: Scale.SetOntologyRequest): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                this.options.environment ?? environments.ScaleApiEnvironment.Production,
+                this.options.environment ?? environments.ScaleEnvironment.Production,
                 `/projects/${name}/setOntology`
             ),
             method: "POST",
@@ -211,7 +211,7 @@ export class Client {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.ScaleApiError({
+            throw new errors.ScaleError({
                 statusCode: _response.error.statusCode,
                 body: _response.error.body,
             });
@@ -219,14 +219,14 @@ export class Client {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.ScaleApiError({
+                throw new errors.ScaleError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.ScaleApiTimeoutError();
+                throw new errors.ScaleTimeoutError();
             case "unknown":
-                throw new errors.ScaleApiError({
+                throw new errors.ScaleError({
                     message: _response.error.errorMessage,
                 });
         }
