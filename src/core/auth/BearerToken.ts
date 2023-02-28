@@ -1,15 +1,26 @@
+import { parse } from "basic-auth";
+import { Base64 } from "js-base64";
+
+/**
+ * this file is modified from the default to work with Scale's authentication
+ * scheme: basic auth, where the username is the API key and the password is "".
+ */
+
 export type BearerToken = string;
 
-const BEARER_AUTH_HEADER_PREFIX = /^Bearer /i;
-
 export const BearerToken = {
-    toAuthorizationHeader: (token: BearerToken | undefined): string | undefined => {
-        if (token == null) {
+    toAuthorizationHeader: (apiKey: BearerToken | undefined): string | undefined => {
+        if (apiKey == null) {
             return undefined;
         }
-        return `Bearer ${token}`;
+        const token = Base64.encode(`${apiKey}:`);
+        return `Basic ${token}`;
     },
     fromAuthorizationHeader: (header: string): BearerToken => {
-        return header.replace(BEARER_AUTH_HEADER_PREFIX, "").trim() as BearerToken;
+        const parsed = parse(header);
+        if (parsed == null) {
+            throw new Error("Invalid basic auth");
+        }
+        return parsed.name;
     },
 };
