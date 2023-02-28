@@ -24,7 +24,7 @@ yarn add @fern-api/scale
 
 ## Usage
 
-[![Try it out](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/edit/typescript-example-using-sdk-built-with-fern-e5f4nr?file=app.ts)
+[![Try it out](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/edit/typescript-example-using-sdk-built-with-fern-a9cuum?file=app.ts)
 
 ```typescript
 import { ScaleClient } from '@fern-api/scale';
