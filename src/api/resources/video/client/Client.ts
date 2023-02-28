@@ -9,15 +9,15 @@ import urlJoin from "url-join";
 import * as serializers from "../../../../serialization";
 import * as errors from "../../../../errors";
 
-export declare namespace Client {
+export declare namespace Video {
     interface Options {
         environment?: environments.ScaleEnvironment | string;
-        token?: core.Supplier<core.BearerToken>;
+        token?: core.Supplier<core.BearerToken | undefined>;
     }
 }
 
-export class Client {
-    constructor(private readonly options: Client.Options) {}
+export class Video {
+    constructor(private readonly options: Video.Options) {}
 
     /**
      * This endpoint creates a `videoplaybackannotation` task. In this task, we will view the given video file and draw annotation around the specified objects. You are required to provide a URL to the video file as the `attachment`. It can be in `mp4`, `webm`, or `ogg` format. You can optionally provide additional markdown-enabled or Google Doc-based [instructions](https://scale.com/docs/instructions) via the `instruction` parameter. You may optionally specify a `frame_rate`, which will determine how many frames per second will be used to annotate the given video. The default value is `1`. You may also optionally specify `events_to_annotate`, a list of strings describing [events section](/reference/events) to annotate in the video. If the request is successful, Scale will return the generated task object, at which point you should store the `task_id` to have a permanent reference to the task.

@@ -9,15 +9,15 @@ import urlJoin from "url-join";
 import * as serializers from "../../../../../../serialization";
 import * as errors from "../../../../../../errors";
 
-export declare namespace Client {
+export declare namespace Assignments {
     interface Options {
         environment?: environments.ScaleEnvironment | string;
-        token?: core.Supplier<core.BearerToken>;
+        token?: core.Supplier<core.BearerToken | undefined>;
     }
 }
 
-export class Client {
-    constructor(private readonly options: Client.Options) {}
+export class Assignments {
+    constructor(private readonly options: Assignments.Options) {}
 
     /**
      * Gets the current project assignments of all active users in your team (does not include “invited” or “disabled” team members).

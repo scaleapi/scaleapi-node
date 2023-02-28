@@ -9,15 +9,15 @@ import urlJoin from "url-join";
 import * as serializers from "../../../../serialization";
 import * as errors from "../../../../errors";
 
-export declare namespace Client {
+export declare namespace Teammates {
     interface Options {
         environment?: environments.ScaleEnvironment | string;
-        token?: core.Supplier<core.BearerToken>;
+        token?: core.Supplier<core.BearerToken | undefined>;
     }
 }
 
-export class Client {
-    constructor(private readonly options: Client.Options) {}
+export class Teammates {
+    constructor(private readonly options: Teammates.Options) {}
 
     /**
      * Retrieves basic information about all team members associate with your account.

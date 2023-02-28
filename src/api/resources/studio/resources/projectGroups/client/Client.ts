@@ -9,15 +9,15 @@ import urlJoin from "url-join";
 import * as serializers from "../../../../../../serialization";
 import * as errors from "../../../../../../errors";
 
-export declare namespace Client {
+export declare namespace ProjectGroups {
     interface Options {
         environment?: environments.ScaleEnvironment | string;
-        token?: core.Supplier<core.BearerToken>;
+        token?: core.Supplier<core.BearerToken | undefined>;
     }
 }
 
-export class Client {
-    constructor(private readonly options: Client.Options) {}
+export class ProjectGroups {
+    constructor(private readonly options: ProjectGroups.Options) {}
 
     /**
      * Returns all labeler groups for the project specified in URL.
@@ -26,7 +26,7 @@ export class Client {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.ScaleEnvironment.Production,
-                `/studio/projects/${project}/groups/`
+                `/studio/projects/${project}/groups`
             ),
             method: "GET",
             headers: {
@@ -69,7 +69,7 @@ export class Client {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.ScaleEnvironment.Production,
-                `/studio/projects/${project}/groups/`
+                `/studio/projects/${project}/groups`
             ),
             method: "POST",
             headers: {
@@ -114,7 +114,7 @@ export class Client {
         const _response = await core.fetcher({
             url: urlJoin(
                 this.options.environment ?? environments.ScaleEnvironment.Production,
-                `/studio/projects/${project}/groups//${group}`
+                `/studio/projects/${project}/groups/${group}`
             ),
             method: "PUT",
             headers: {

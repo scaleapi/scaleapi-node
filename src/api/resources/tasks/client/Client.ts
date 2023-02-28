@@ -9,15 +9,15 @@ import urlJoin from "url-join";
 import * as serializers from "../../../../serialization";
 import * as errors from "../../../../errors";
 
-export declare namespace Client {
+export declare namespace Tasks {
     interface Options {
         environment?: environments.ScaleEnvironment | string;
-        token?: core.Supplier<core.BearerToken>;
+        token?: core.Supplier<core.BearerToken | undefined>;
     }
 }
 
-export class Client {
-    constructor(private readonly options: Client.Options) {}
+export class Tasks {
+    constructor(private readonly options: Tasks.Options) {}
 
     /**
      * This API endpoint retrieves a specific task.

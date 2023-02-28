@@ -4,35 +4,35 @@
 
 import * as environments from "../../../../environments";
 import * as core from "../../../../core";
-import { Client as AssignmentsClient } from "../resources/assignments/client/Client";
-import { Client as BatchesClient } from "../resources/batches/client/Client";
-import { Client as ProjectGroupsClient } from "../resources/projectGroups/client/Client";
+import { Assignments } from "../resources/assignments/client/Client";
+import { Batches } from "../resources/batches/client/Client";
+import { ProjectGroups } from "../resources/projectGroups/client/Client";
 
-export declare namespace Client {
+export declare namespace Studio {
     interface Options {
         environment?: environments.ScaleEnvironment | string;
-        token?: core.Supplier<core.BearerToken>;
+        token?: core.Supplier<core.BearerToken | undefined>;
     }
 }
 
-export class Client {
-    constructor(private readonly options: Client.Options) {}
+export class Studio {
+    constructor(private readonly options: Studio.Options) {}
 
-    #assignments: AssignmentsClient | undefined;
+    private _assignments: Assignments | undefined;
 
-    public get assignments(): AssignmentsClient {
-        return (this.#assignments ??= new AssignmentsClient(this.options));
+    public get assignments(): Assignments {
+        return (this._assignments ??= new Assignments(this.options));
     }
 
-    #batches: BatchesClient | undefined;
+    private _batches: Batches | undefined;
 
-    public get batches(): BatchesClient {
-        return (this.#batches ??= new BatchesClient(this.options));
+    public get batches(): Batches {
+        return (this._batches ??= new Batches(this.options));
     }
 
-    #projectGroups: ProjectGroupsClient | undefined;
+    private _projectGroups: ProjectGroups | undefined;
 
-    public get projectGroups(): ProjectGroupsClient {
-        return (this.#projectGroups ??= new ProjectGroupsClient(this.options));
+    public get projectGroups(): ProjectGroups {
+        return (this._projectGroups ??= new ProjectGroups(this.options));
     }
 }

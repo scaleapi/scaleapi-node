@@ -4,56 +4,56 @@
 
 import * as environments from "./environments";
 import * as core from "./core";
-import { Client as BatchesClient } from "./api/resources/batches/client/Client";
-import { Client as ProjectsClient } from "./api/resources/projects/client/Client";
-import { Client as StudioClient } from "./api/resources/studio/client/Client";
-import { Client as TasksClient } from "./api/resources/tasks/client/Client";
-import { Client as TeammatesClient } from "./api/resources/teammates/client/Client";
-import { Client as VideoClient } from "./api/resources/video/client/Client";
+import { Batches } from "./api/resources/batches/client/Client";
+import { Projects } from "./api/resources/projects/client/Client";
+import { Studio } from "./api/resources/studio/client/Client";
+import { Tasks } from "./api/resources/tasks/client/Client";
+import { Teammates } from "./api/resources/teammates/client/Client";
+import { Video } from "./api/resources/video/client/Client";
 
 export declare namespace ScaleClient {
     interface Options {
         environment?: environments.ScaleEnvironment | string;
-        token?: core.Supplier<core.BearerToken>;
+        token?: core.Supplier<core.BearerToken | undefined>;
     }
 }
 
 export class ScaleClient {
     constructor(private readonly options: ScaleClient.Options) {}
 
-    #batches: BatchesClient | undefined;
+    private _batches: Batches | undefined;
 
-    public get batches(): BatchesClient {
-        return (this.#batches ??= new BatchesClient(this.options));
+    public get batches(): Batches {
+        return (this._batches ??= new Batches(this.options));
     }
 
-    #projects: ProjectsClient | undefined;
+    private _projects: Projects | undefined;
 
-    public get projects(): ProjectsClient {
-        return (this.#projects ??= new ProjectsClient(this.options));
+    public get projects(): Projects {
+        return (this._projects ??= new Projects(this.options));
     }
 
-    #studio: StudioClient | undefined;
+    private _studio: Studio | undefined;
 
-    public get studio(): StudioClient {
-        return (this.#studio ??= new StudioClient(this.options));
+    public get studio(): Studio {
+        return (this._studio ??= new Studio(this.options));
     }
 
-    #tasks: TasksClient | undefined;
+    private _tasks: Tasks | undefined;
 
-    public get tasks(): TasksClient {
-        return (this.#tasks ??= new TasksClient(this.options));
+    public get tasks(): Tasks {
+        return (this._tasks ??= new Tasks(this.options));
     }
 
-    #teammates: TeammatesClient | undefined;
+    private _teammates: Teammates | undefined;
 
-    public get teammates(): TeammatesClient {
-        return (this.#teammates ??= new TeammatesClient(this.options));
+    public get teammates(): Teammates {
+        return (this._teammates ??= new Teammates(this.options));
     }
 
-    #video: VideoClient | undefined;
+    private _video: Video | undefined;
 
-    public get video(): VideoClient {
-        return (this.#video ??= new VideoClient(this.options));
+    public get video(): Video {
+        return (this._video ??= new Video(this.options));
     }
 }

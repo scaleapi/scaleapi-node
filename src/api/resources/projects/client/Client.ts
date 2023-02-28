@@ -9,15 +9,15 @@ import urlJoin from "url-join";
 import * as serializers from "../../../../serialization";
 import * as errors from "../../../../errors";
 
-export declare namespace Client {
+export declare namespace Projects {
     interface Options {
         environment?: environments.ScaleEnvironment | string;
-        token?: core.Supplier<core.BearerToken>;
+        token?: core.Supplier<core.BearerToken | undefined>;
     }
 }
 
-export class Client {
-    constructor(private readonly options: Client.Options) {}
+export class Projects {
+    constructor(private readonly options: Projects.Options) {}
 
     /**
      * List information for all projects. **Note:** No parameters required. Optionally, set a boolean value for `archived` to only list information for all (un)archived projects.

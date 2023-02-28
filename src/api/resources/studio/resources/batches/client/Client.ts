@@ -9,15 +9,15 @@ import urlJoin from "url-join";
 import * as serializers from "../../../../../../serialization";
 import * as errors from "../../../../../../errors";
 
-export declare namespace Client {
+export declare namespace Batches {
     interface Options {
         environment?: environments.ScaleEnvironment | string;
-        token?: core.Supplier<core.BearerToken>;
+        token?: core.Supplier<core.BearerToken | undefined>;
     }
 }
 
-export class Client {
-    constructor(private readonly options: Client.Options) {}
+export class Batches {
+    constructor(private readonly options: Batches.Options) {}
 
     /**
      * Returns basic information about all pending batches, in order of priority.
