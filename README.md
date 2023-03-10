@@ -2,7 +2,7 @@
 
 # Scale Node Library
 
-[![npm shield](https://img.shields.io/npm/v/@fern-api/scale)](https://www.npmjs.com/package/@fern-api/scale)
+[![npm shield](https://img.shields.io/npm/v/scaleapi)](https://www.npmjs.com/package/scaleapi)
 
 The Scale Node.js library provides access to the Scale API from JavaScript/TypeScript.
 
@@ -13,21 +13,21 @@ API reference documentation is available [here](https://docs.scale.com/reference
 ## Installation
 
 ```
-npm install @fern-api/scale
+npm install scaleapi
 ```
 
 or
 
 ```
-yarn add @fern-api/scale
+yarn add scaleapi
 ```
 
 ## Usage
 
-[![Try it out](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/edit/typescript-example-using-sdk-built-with-fern-a9cuum?file=app.ts)
+[![Try it out](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/edit/typescript-scaleapi-sdk?file=app.ts&view=editor)
 
 ```typescript
-import { ScaleClient } from '@fern-api/scale';
+import { ScaleClient } from 'scaleapi';
 
 const scale = new ScaleClient({
   token: 'YOUR_API_KEY',
@@ -48,7 +48,7 @@ You can find your API keys on your [dashboard](https://scale.com/dashboard), whi
 When you constuct the `ScaleClient`, you can pass in your API key.
 
 ```typescript
-import { ScaleClient } from '@fern-api/scale';
+import { ScaleClient } from 'scaleapi';
 
 const scale = new ScaleClient({
   token: process.env.SCALE_API_KEY,
@@ -58,7 +58,7 @@ const scale = new ScaleClient({
 You can also pass a function:
 
 ```typescript
-import { ScaleClient } from '@fern-api/scale';
+import { ScaleClient } from 'scaleapi';
 
 const scale = new ScaleClient({
   token: getScaleApiKey,
@@ -75,7 +75,7 @@ The Scale SDK is crafted to give you a great experience in your IDE. All types a
 in the `Scale` export.
 
 ```typescript
-import { ScaleClient, Scale } from '@fern-api/scale';
+import { ScaleClient, Scale } from 'scaleapi';
 
 const scale = new ScaleClient({
   token: process.env.SCALE_API_KEY,
@@ -105,7 +105,7 @@ When an error is encountered, a [`ScaleError`](src/errors/ScaleError.ts) is thro
 a `message` or a response `body`, which you can log to see additional information.
 
 ```typescript
-import { ScaleClient, ScaleError } from '@fern-api/scale';
+import { ScaleClient, ScaleError } from 'scaleapi';
 
 const scale = new ScaleClient({
   token: process.env.SCALE_API_KEY,
@@ -132,7 +132,7 @@ The Scale SDK will timeout after 60 seconds. When this happens, a [`ScaleTimeout
 is thrown:
 
 ```typescript
-import { ScaleClient, ScaleTimeoutError } from '@fern-api/scale';
+import { ScaleClient, ScaleTimeoutError } from 'scaleapi';
 
 const scale = new ScaleClient({
   token: process.env.SCALE_API_KEY,
@@ -168,7 +168,7 @@ programmatically. Additions made directly to this library would have to be moved
 over to our generation code, otherwise they would be overwritten upon the next
 generated release. Feel free to open a PR as a proof of concept, but know that
 we will not be able to merge it as-is. We suggest [opening an
-issue](https://github.com/fern-scale/scale-node/issues) first to discuss with
+issue](https://github.com/scaleapi/scaleapi-node/issues) first to discuss with
 us!
 
 On the other hand, contributions to the README are always very welcome!
