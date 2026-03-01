@@ -11,6 +11,8 @@ The Scale Node.js library provides access to the Scale API from JavaScript/TypeS
 
 API reference documentation is available [here](https://docs.scale.com/reference/introduction).
 
+[![API Testing](https://img.shields.io/badge/API%20Test-RapidAPI-blue.svg)](https://rapidapi.com/package/AudioTranscription/functions?utm_source=ScaleGithub&utm_medium=button&utm_content=Vender_GitHub)
+
 ## Installation
 
 ```
